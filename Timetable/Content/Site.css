@@ -1,12 +1,14 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background: #edeef0;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    background: #ebeef0;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -29,9 +31,14 @@ textarea {
 
 table {
     width: 100%;
-    border-spacing: 0;
-    background: #454d55;
-    color: #fff
+    /**/ background: #454d55;
+    /**/ color: #fff;
+    /**/ background: #fff;
+    /**/ color: #333;
+    border-collapse: separate;
+    border-spacing: 5px 5px;
+    empty-cells: hide;
+    border-radius: 10px;
 }
 
 tr > th {
@@ -45,8 +52,12 @@ tr > td {
     border: 2px solid #dee2e6;
     text-align: center;
     font-family: Roboto;
+    border-collapse: separate;
+    color: #333;
     padding: 15px;
-    font-size: 18px
+    font-size: 18px;
+    background: #edeef0;
+    border-radius: 10px;
 }
 
 tr:first-of-type > td {
@@ -58,8 +69,20 @@ tr:nth-child(2n) {
 }
 
 .timeout {
-    padding: 5px;
+    padding: 3px;
     color: #333;
     background: #edeef0;
     text-align: left;
+}
+
+.discipline {
+    float: none;
+}
+
+.locate {
+    float: left;
+}
+
+.teacher {
+    float: right;
 }
