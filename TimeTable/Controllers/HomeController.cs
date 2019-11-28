@@ -10,6 +10,8 @@ namespace TimeTable.Controllers {
 
         DAOUser daoUser = new DAOUser();
         DAOGroup daoGroup = new DAOGroup();
+        DAODiscipline daoDiscipline = new DAODiscipline();
+        DAOLesson daoLesson = new DAOLesson();
 
         public ActionResult Index() {
             return View();
@@ -37,6 +39,18 @@ namespace TimeTable.Controllers {
             ViewBag.Message = "Your group page.";
 
             return View(daoGroup.GetGroups());
+        }
+
+        public ActionResult Discipline() {
+            ViewBag.Message = "Your discipline page.";
+
+            return View(daoDiscipline.GetDiscipline());
+        }
+
+        public ActionResult Lesson() {
+            ViewBag.Message = "Your lesson page.";
+
+            return View(daoLesson.GetLesson());
         }
 
 

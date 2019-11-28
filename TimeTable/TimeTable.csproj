@@ -139,12 +139,16 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DAO\DAO.cs" />
+    <Compile Include="DAO\DAODiscipline.cs" />
     <Compile Include="DAO\DAOGroup.cs" />
+    <Compile Include="DAO\DAOLesson.cs" />
     <Compile Include="DAO\DAOUser.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Discipline.cs" />
     <Compile Include="Models\Group.cs" />
+    <Compile Include="Models\Lesson.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -186,6 +190,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\User.cshtml" />
     <Content Include="Views\Home\Group.cshtml" />
+    <Content Include="Views\Home\Discipline.cshtml" />
+    <Content Include="Views\Home\Lesson.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
