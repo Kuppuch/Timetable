@@ -2,18 +2,32 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="center">
+<!--<div class="center">
     <h1>Группа</h1>
     <p>Институт</p>
+</div>-->
+
+
+<div class="editbar">
+    <div class="left">
+        <h1>Группа</h1>
+        <p>Институт</p>
+    </div>
+    <div class="right">
+        <ul>
+            <li><button id="modalBtn" class="btn">Создать</button></li>
+            <li>Редактировать</li>
+        </ul>
+    </div>
+
 </div>
 
-@Html.CheckBox("Enable", false)
-
-<div>
-    <input id="Enable" name="Enable" type="checkbox" value="true" />
-    <input name="Enable" type="hidden" value="false" />
+<div id="modalWindow" class="modal">
+    <div class="modal-content">
+        <h3>Warning!</h3>
+        <p>Here will be useful information</p>
+    </div>
 </div>
-
 
 <table>
     <tr>
