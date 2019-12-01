@@ -8,7 +8,17 @@
 
 <p>
     @Html.ActionLink("Create New", "Create")
+    <button id="modalBtn" class="btn">Создать</button>
 </p>
+<div id="modalWindow" class="modal">
+    <div class="modal-content">
+        <select>
+            <option>@Html.DropDownList("Discipline", "Select Style")</option>
+        </select>
+
+    </div>
+</div>
+
 <table class="table">
     <tr>
         <th>

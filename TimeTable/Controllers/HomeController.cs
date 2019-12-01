@@ -53,6 +53,12 @@ namespace TimeTable.Controllers {
             return View(daoLesson.GetLesson());
         }
 
+        [HttpGet]
+        public ActionResult Disc() {
+            ViewBag.Discipline = new SelectList(daoLesson.GetDiscipline(), "discipline", "Discipline");
+            return View();
+        }
+
 
     }
 }

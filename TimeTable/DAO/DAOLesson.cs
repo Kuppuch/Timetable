@@ -23,5 +23,17 @@ namespace TimeTable.DAO {
 
             return lessonList;
         }
+
+        public List<string> GetDiscipline() {
+            connection.Open();
+            List<string> disc = new List<string>();
+            using (var reader = (new MySqlCommand("SELECT discipline FROM less", connection)).ExecuteReader()) {
+                while (reader.Read()) {
+                    disc.Add((string)reader["discipline"]);
+                }
+            }
+
+            return null;
+        }
     }
 }
