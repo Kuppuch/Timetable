@@ -7,7 +7,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/modalWindow")
+    
 
 </head>
 <body>
@@ -23,10 +23,10 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Группы", "Group")</li>
-                    <li>@Html.ActionLink("Пользователи", "User", "Home")</li>
-                    <li>@Html.ActionLink("Дисциплина", "Discipline", "Home")</li>
-                    <li>@Html.ActionLink("Занятия", "Lesson", "Home")</li>
+                    <li>@Html.ActionLink("Группы", "Index", "Group")</li>
+                    <li>@Html.ActionLink("Пользователи", "Index", "User")</li>
+                    <li>@Html.ActionLink("Дисциплина", "Index", "Discipline")</li>
+                    <li>@Html.ActionLink("Занятия", "Index", "Lesson")</li>
                 </ul>
             </div>
         </div>
@@ -42,5 +42,6 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/modalWindow")
 </body>
 </html>

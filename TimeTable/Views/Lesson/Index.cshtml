@@ -1,0 +1,83 @@
+﻿@model LessionContainer
+
+@{
+    ViewBag.Title = "Lesson";
+}
+
+<div class="editbar">
+    <div class="left">
+        <h2>Lesson</h2>
+    </div>
+    <div class="right">
+        <p>
+            @*@Html.ActionLink("Create New", "Create")*@
+            <button id="modalBtn" class="btn">Создать</button>
+        </p>
+    </div>
+</div>
+
+<div id="modalWindow" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <select>
+            <option value="0">Выберите из дисциплину</option>
+            @foreach (var item in Model.GetDisciplines()) {
+                <option>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </option>
+
+            }
+        </select>
+        <select>
+            <option value="0">Выберите группу</option>
+            @foreach (var item in Model.GetGroups()) {
+                <option>
+                    @Html.DisplayFor(modelItem => item.Name)@Html.DisplayFor(modelItem => item.Year)
+                </option>
+            }
+        </select>
+        <select>
+            <option value="0">Выберите преподавателя</option>
+            @foreach (var item in Model.GetUsers()) {
+                <option>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </option>
+            }
+        </select>
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Дисциплина", "Index", "Discipline")
+        </th>
+        <th>
+            @Html.ActionLink("Группы", "Index", "Group")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GetLessons().First().Teacher)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.GetLessons()) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Discipline)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Group)@Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Teacher)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

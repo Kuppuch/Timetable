@@ -13,6 +13,7 @@ namespace TimeTable.Controllers {
         DAODiscipline daoDiscipline = new DAODiscipline();
         DAOLesson daoLesson = new DAOLesson();
 
+
         public ActionResult Index() {
             return View();
         }
@@ -53,12 +54,13 @@ namespace TimeTable.Controllers {
             return View(daoLesson.GetLesson());
         }
 
-        [HttpGet]
         public ActionResult Disc() {
-            ViewBag.Discipline = new SelectList(daoLesson.GetDiscipline(), "discipline", "Discipline");
-            return View();
+            return View(daoLesson.GetDisciplines());
         }
 
+        public ActionResult Year() {
+            return View(daoLesson.GetGroups());
+        }
 
     }
 }

@@ -18,10 +18,9 @@ namespace TimeTable.DAO {
 
                     disciplineList.Add(new Discipline() { Id = (int)reader["id"], Name = (string)reader["name"], User = (string)(reader["user"]) });
                 }
-
             }
-
             return disciplineList;
         }
+
     }
 }

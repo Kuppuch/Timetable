@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TimeTable.Models.Lesson>
+﻿@model LessionContainer
 
 @{
     ViewBag.Title = "Lesson";
@@ -10,30 +10,53 @@
     @Html.ActionLink("Create New", "Create")
     <button id="modalBtn" class="btn">Создать</button>
 </p>
+
 <div id="modalWindow" class="modal">
     <div class="modal-content">
+        <span class="close">&times;</span>
         <select>
-            <option>@Html.DropDownList("Discipline", "Select Style")</option>
-        </select>
+            <option value="0">Выберите из дисциплину</option>
+            @foreach (var item in Model.GetDisciplines()) {
+                <option>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </option>
 
+            }
+        </select>
+        <select>
+            <option value="0">Выберите группу</option>
+            @foreach (var item in Model.GetGroups()) {
+                <option>
+                    @Html.DisplayFor(modelItem => item.Name)@Html.DisplayFor(modelItem => item.Year)
+                </option>
+            }
+        </select>
+        <select>
+            <option value="Выберите преподавателя"></option>
+            @foreach (var item in Model.GetUsers()) {
+                <option>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </option>
+            }
+        </select>
     </div>
 </div>
 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Discipline)
+            @Html.DisplayNameFor(model => model.GetLessons().First().Discipline)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Group)
+            @Html.DisplayNameFor(model => model.GetLessons().First().Group)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Teacher)
+            @Html.DisplayNameFor(model => model.GetLessons().First().Teacher)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.GetLessons()) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Discipline)

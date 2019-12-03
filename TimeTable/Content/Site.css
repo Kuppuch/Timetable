@@ -91,7 +91,7 @@ tr > td {
 .editbar {
     margin-bottom: 15px;
     padding: 5px;
-    background: #fff;
+    background: #ffffff !important;
     list-style-type: none;
     display: inline-block;
     border-radius: 5px;
@@ -116,10 +116,12 @@ tr > td {
 }
 
 .modal-content {
+    margin-top: 80px;
     width: 60%;
+    height: 80%;
     background-color: #fff;
-    margin: 15% auto;
-    padding: 20px;
+    margin: 5% auto;
+    padding: 5px 20px 20px 20px;
     border: 1px solid #888;
 }
 
@@ -137,12 +139,12 @@ tr > td {
 
 .right {
     float: right;
-    padding-top: 40px;
+    padding-top: 35px;
 }
 
 .btn {
     background: #e6e6e6;
-    padding: 10px;
+    padding: 15px;
     font-size: 18px;
     outline: none;
 }
