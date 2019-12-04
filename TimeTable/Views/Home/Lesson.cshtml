@@ -59,13 +59,13 @@
 @foreach (var item in Model.GetLessons()) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Discipline)
+            @Html.DisplayFor(modelItem => item.DisciplineText)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Group)@Html.DisplayFor(modelItem => item.Year)
+            @Html.DisplayFor(modelItem => item.GroupText)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Teacher)
+            @Html.DisplayFor(modelItem => item.TeacherText)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

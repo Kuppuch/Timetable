@@ -5,16 +5,14 @@ using System.Web;
 
 namespace TimeTable.Models {
     public class Lesson {
-        private int id;
-        private string discipline;
-        private string group;
-        private int year;
-        private string teacher;
-
         public int Id { get; set; }
-        public string Discipline { get; set; }
-        public string Group { get; set; }
-        public int Year { get; set; }
-        public string Teacher { get; set; }
+        public int Discipline { get; set; }
+        public int Group { get; set; }
+        public int Teacher { get; set; }
+
+
+        public string DisciplineText { get; set; }
+        public string GroupText { get; set; }
+        public string TeacherText { get; set; }
     }
 }

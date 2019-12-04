@@ -25,18 +25,23 @@ namespace TimeTable.DAO {
 
         }
 
-        public List<User> GetUsers(string table = "Users") {
+        public List<User> GetUsers(string selectCondition = "") {
             //Connect();
             //Disconnect();
             List<User> userList = new List<User>();
             connection.Open();
 
             //using (var reader = (new MySqlCommand("SELECT users.fullname, group.name, user_type.type FROM users i", connection)).ExecuteReader()) {
-            using (var reader = (new MySqlCommand("SELECT * from student;", connection)).ExecuteReader()) {
+            using (var reader = (new MySqlCommand("SELECT * from users_view" + (selectCondition != "" ? " " + selectCondition : ""), connection)).ExecuteReader()) {
                 while (reader.Read()) {
-                    Console.WriteLine(reader["id"]);
-
-                    userList.Add(new User() { Id = (int)reader["id"], Name = (string)reader["fullname"], Group = (string)(reader["group"] == DBNull.Value ? "0" : reader["group"]), Year = (int)(reader["year"] == DBNull.Value ? "0" : reader["year"]), UserType = (string)reader["type"] });
+                    userList.Add(new User() {
+                        Id = (int)reader["id"],
+                        Name = (string)reader["fullname"],
+                        Group = (int)(reader["group_id"] == DBNull.Value ? 0 : reader["group_id"]),
+                        GroupText = (string)(reader["group"] == DBNull.Value ? "-" : reader["group"]) + (string)(reader["year"] == DBNull.Value ? "" : reader["year"] + ""),
+                        UserType = (int)reader["type_id"],
+                        UserTypeText = (string)reader["type"]
+                    });
                 }
 
             }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using TimeTable.Models;
+using TimeTable.DAO;
 
 namespace TimeTable {
     public struct LessionContainer {
@@ -11,6 +12,7 @@ namespace TimeTable {
         public List<Discipline> disciplines;
         public List<Group> groups;
         public List<User> users;
+        public DAOLesson daoLesson;
 
         public List<Lesson> GetLessons() {
             return lessons;
@@ -26,6 +28,11 @@ namespace TimeTable {
         public List<User> GetUsers() {
             return users;
         }
+
+        public bool InsertLesson(Lesson l) {
+            return daoLesson.InsertLesson(l);
+        }
+
 
     }
 }
