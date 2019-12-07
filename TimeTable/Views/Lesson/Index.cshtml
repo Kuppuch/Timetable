@@ -9,60 +9,10 @@
         <h2>Lesson</h2>
     </div>
     <div class="right">
-        <p>
-            @Html.ActionLink("Create New", "Create")
-            <button id="modalBtn" class="btn">Создать</button>
-        </p>
-
+        @Html.ActionLink("Создать", "Create", null, new { @class = "btn m-1" })
     </div>
 </div>
 
-@*<div id="modalWindow" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <div class="lesson-create-container">
-            <div class="mb-3">
-                <select class="w-100">
-                    <option value="0">Выберите из дисциплину</option>
-                    @foreach (var item in Model.GetDisciplines()) {
-                        <option value="@Html.DisplayFor(modelItem => item.Id)">
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </option>
-                    }
-                </select>
-            </div>
-            <div class="mb-3">
-                <select class="w-100">
-                    <option value="0">Выберите группу</option>
-                    @foreach (var item in Model.GetGroups()) {
-                        <option value="@Html.DisplayFor(modelItem => item.Id)">
-                            @Html.DisplayFor(modelItem => item.Name)@Html.DisplayFor(modelItem => item.Year)
-                        </option>
-                    }
-                </select>
-            </div>
-            <div class="mb-3">
-                <select class="w-100">
-                    <option value="0">Выберите преподавателя</option>
-                    @foreach (var item in Model.GetUsers()) {
-                        <option value="@Html.DisplayFor(modelItem => item.Id)">
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </option>
-                    }
-                </select>
-            </div>
-        </div>
-        <br>
-        <div class="insert">
-            <button id="modalBtn" class="btn">Добавить</button>
-            <input type="submit" value="Create" class="btn btn-default" />
-            @using (Html.BeginForm("Create", "Lesson", FormMethod.Post)) {
-                <input type="text" name="product" /><br />
-                <button name="action" value="add">Создать</button>
-            }
-        </div>
-    </div>
-</div>*@
 
 <table class="table">
     <tr>

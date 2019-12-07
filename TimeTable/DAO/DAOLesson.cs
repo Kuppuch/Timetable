@@ -38,7 +38,7 @@ namespace TimeTable.DAO {
             if (connection.State != System.Data.ConnectionState.Open)
                 connection.Open();
 
-            using (var reader = (new MySqlCommand("SELECT id, name FROM discipline ORDER BY name", connection)).ExecuteReader()) {
+            using (var reader = (new MySqlCommand("SELECT `id`, `name` FROM discipline ORDER BY `name`", connection)).ExecuteReader()) {
                 while (reader.Read()) {
                     disciplineList.Add(new Discipline() { Id = (int)(reader["id"] == DBNull.Value ? 0 : reader["id"]), Name = (string)reader["name"] });
                 }
@@ -60,7 +60,7 @@ namespace TimeTable.DAO {
         }
 
         public List<User> GetUsers() {
-            return new DAOUser().GetUsers("WHERE `user_type` = 2 ORDER BY fullname");
+            return new DAOUser().GetUsers("WHERE `type_id` = 2 ORDER BY name");
         }
 
         public bool InsertLesson(Lesson l) {
@@ -69,7 +69,7 @@ namespace TimeTable.DAO {
                 connection.Open();
 
             try {
-                (new MySqlCommand("INSERT INTO `timetable`.`lesson` (`group`, `discipline`, `user`) VALUES ('" + l.Group + "', '" + l.Discipline + "', '" + l.Teacher + "');", connection))
+                (new MySqlCommand("INSERT INTO `timetable`.`lesson` (`group`, `discipline`, `teacher`) VALUES ('" + l.Group + "', '" + l.Discipline + "', '" + l.Teacher + "');", connection))
                 .ExecuteNonQuery();
 
                 return true;

@@ -36,7 +36,7 @@ namespace TimeTable.DAO {
                 while (reader.Read()) {
                     userList.Add(new User() {
                         Id = (int)reader["id"],
-                        Name = (string)reader["fullname"],
+                        Name = (string)reader["name"],
                         Group = (int)(reader["group_id"] == DBNull.Value ? 0 : reader["group_id"]),
                         GroupText = (string)(reader["group"] == DBNull.Value ? "-" : reader["group"]) + (string)(reader["year"] == DBNull.Value ? "" : reader["year"] + ""),
                         UserType = (int)reader["type_id"],

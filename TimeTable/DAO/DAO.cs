@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 
 namespace TimeTable.DAO {
     public class DAO {
-        public MySqlConnection connection = new MySqlConnection("server=localhost;port=3306;username=root;password=root;database=timetable;");
+        public MySqlConnection connection = new MySqlConnection("server=localhost;port=3306;username=root;password=;database=timetable;");
 
         public MySqlConnection Connection { get; set; }
 
