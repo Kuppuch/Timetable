@@ -30,37 +30,7 @@ namespace TimeTable.DAO {
 
             }
 
-            return new LessionContainer() { lessons = lessonList, disciplines = GetDisciplines(), groups = GetGroups(), users = GetUsers() };
-        }
-
-        public List<Discipline> GetDisciplines() {
-            List<Discipline> disciplineList = new List<Discipline>();
-            if (connection.State != System.Data.ConnectionState.Open)
-                connection.Open();
-
-            using (var reader = (new MySqlCommand("SELECT `id`, `name` FROM discipline ORDER BY `name`", connection)).ExecuteReader()) {
-                while (reader.Read()) {
-                    disciplineList.Add(new Discipline() { Id = (int)(reader["id"] == DBNull.Value ? 0 : reader["id"]), Name = (string)reader["name"] });
-                }
-            }
-            return disciplineList;
-        }
-
-        public List<Group> GetGroups() {
-            List<Group> groupList = new List<Group>();
-            if (connection.State != System.Data.ConnectionState.Open)
-                connection.Open();
-
-            using (var reader = (new MySqlCommand("SELECT * FROM timetable.group", connection)).ExecuteReader()) {
-                while (reader.Read()) {
-                    groupList.Add(new Group() { Id = (int)(reader["id"] == DBNull.Value ? 0 : reader["id"]), Name = (string)reader["name"], Year = (int)reader["year"] });
-                }
-            }
-            return groupList;
-        }
-
-        public List<User> GetUsers() {
-            return new DAOUser().GetUsers("WHERE `type_id` = 2 ORDER BY name");
+            return new LessionContainer() { lessons = lessonList, disciplines = DAODiscipline.GetDisciplines(), groups = DAOGroup.GetGroups(), users = DAOUser.GetTeachers() };
         }
 
         public bool InsertLesson(Lesson l) {

@@ -17,11 +17,11 @@ namespace TimeTable.Controllers {
         }
 
         public ActionResult Disc() {
-            return View(daoLesson.GetDisciplines());
+            return View(DAODiscipline.GetDisciplines());
         }
 
         public ActionResult Year() {
-            return View(daoLesson.GetGroups());
+            return View(DAOGroup.GetGroups());
         }
 
         public ActionResult Create() {

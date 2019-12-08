@@ -6,11 +6,11 @@ using MySql.Data.MySqlClient;
 
 namespace TimeTable.DAO {
     public class DAO {
-        public MySqlConnection connection = new MySqlConnection("server=localhost;port=3306;username=root;password=;database=timetable;");
+        public static MySqlConnection connection = new MySqlConnection("server=localhost;port=3306;username=root;password=;database=timetable;");
 
-        public MySqlConnection Connection { get; set; }
+        public static MySqlConnection Connection { get; set; }
 
-        public void Connect() {
+        public static void Connect() {
             try {
                 if (connection.State == System.Data.ConnectionState.Closed)
                     connection.Open();
@@ -26,7 +26,7 @@ namespace TimeTable.DAO {
 
         }
 
-        public void Disconnect() {
+        public static void Disconnect() {
             if (connection.State == System.Data.ConnectionState.Open) {
                 connection.Close();
                 Console.WriteLine("ОТКЛЮЧЕНО");

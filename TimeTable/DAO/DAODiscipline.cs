@@ -4,22 +4,44 @@ using System.Linq;
 using System.Web;
 using TimeTable.Models;
 using MySql.Data.MySqlClient;
+using System.Diagnostics;
 
 namespace TimeTable.DAO {
     public class DAODiscipline : DAO {
-        public List<Discipline> GetDiscipline(string table = "Discipline") {
+
+        public static List<Discipline> GetDisciplines() {
             List<Discipline> disciplineList = new List<Discipline>();
-            connection.Open();
+            if (connection.State != System.Data.ConnectionState.Open)
+                connection.Open();
 
-            //using (var reader = (new MySqlCommand("SELECT users.fullname, group.name, user_type.type FROM users i", connection)).ExecuteReader()) {
-            using (var reader = (new MySqlCommand("SELECT * FROM `timetable`.`discipline_view`;", connection)).ExecuteReader()) {
+            using (var reader = (new MySqlCommand("SELECT * FROM `discipline_view` ORDER BY `name`", connection)).ExecuteReader()) {
                 while (reader.Read()) {
-                    Console.WriteLine(reader["id"]);
-
-                    disciplineList.Add(new Discipline() { Id = (int)reader["id"], Name = (string)reader["name"], UserText = (string)(reader["user"]) });
+                    disciplineList.Add(new Discipline() {
+                        Id = (int)(reader["id"] == DBNull.Value ? 0 : reader["id"]),
+                        Name = (string)reader["name"],
+                        UserText = (string)reader["user"] });
                 }
             }
             return disciplineList;
+        }
+
+        public bool InsertDiscipline(Discipline d) {
+
+            if (connection.State != System.Data.ConnectionState.Open)
+                connection.Open();
+
+            try {
+                (new MySqlCommand("INSERT INTO `timetable`.`discipline` (`name`, `user`) VALUES ('" + d.Name + "', '" + d.User + "');", connection))
+                .ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex) {
+                Debug.WriteLine(ex);
+
+                return false;
+            }
+
         }
 
     }

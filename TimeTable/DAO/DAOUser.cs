@@ -29,7 +29,8 @@ namespace TimeTable.DAO {
             //Connect();
             //Disconnect();
             List<User> userList = new List<User>();
-            connection.Open();
+            if(connection.State != System.Data.ConnectionState.Open)
+                connection.Open();
 
             //using (var reader = (new MySqlCommand("SELECT users.fullname, group.name, user_type.type FROM users i", connection)).ExecuteReader()) {
             using (var reader = (new MySqlCommand("SELECT * from users_view" + (selectCondition != "" ? " " + selectCondition : ""), connection)).ExecuteReader()) {
@@ -47,6 +48,10 @@ namespace TimeTable.DAO {
             }
 
             return userList;
+        }
+
+        public static List<User> GetTeachers() {
+            return new DAOUser().GetUsers("WHERE `type_id` = 2 ORDER BY name");
         }
     }
 }

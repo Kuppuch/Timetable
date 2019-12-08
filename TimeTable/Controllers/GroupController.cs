@@ -16,11 +16,11 @@ namespace TimeTable.Controllers
         // GET: Group
         public ActionResult Index()
         {
-            return View(daoGroup.GetGroups());
+            return View(DAOGroup.GetGroups());
         }
 
         public ActionResult Create() {
-            ViewBag.Message = daoGroup.GetYears();
+            ViewBag.Message = DAOGroup.GetYears();
             return View(new Group());
         }
 

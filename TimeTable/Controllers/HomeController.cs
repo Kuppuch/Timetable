@@ -39,13 +39,13 @@ namespace TimeTable.Controllers {
         public ActionResult Group() {
             ViewBag.Message = "Your group page.";
 
-            return View(daoGroup.GetGroups());
+            return View(DAOGroup.GetGroups());
         }
 
         public ActionResult Discipline() {
             ViewBag.Message = "Your discipline page.";
 
-            return View(daoDiscipline.GetDiscipline());
+            return View(DAODiscipline.GetDisciplines());
         }
 
         public ActionResult Lesson() {
@@ -55,11 +55,11 @@ namespace TimeTable.Controllers {
         }
 
         public ActionResult Disc() {
-            return View(daoLesson.GetDisciplines());
+            return View(DAODiscipline.GetDisciplines());
         }
 
         public ActionResult Year() {
-            return View(daoLesson.GetGroups());
+            return View(DAOGroup.GetGroups());
         }
 
     }
