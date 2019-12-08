@@ -12,11 +12,11 @@ namespace TimeTable.DAO {
             connection.Open();
 
             //using (var reader = (new MySqlCommand("SELECT users.fullname, group.name, user_type.type FROM users i", connection)).ExecuteReader()) {
-            using (var reader = (new MySqlCommand("SELECT `discipline`.`id` as `id`, `discipline`.`name`, `users`.`name` as `user` FROM `timetable`.`discipline` JOIN `timetable`.`users` where `discipline`.`user` = `users`.`id`;", connection)).ExecuteReader()) {
+            using (var reader = (new MySqlCommand("SELECT * FROM `timetable`.`discipline_view`;", connection)).ExecuteReader()) {
                 while (reader.Read()) {
                     Console.WriteLine(reader["id"]);
 
-                    disciplineList.Add(new Discipline() { Id = (int)reader["id"], Name = (string)reader["name"], User = (string)(reader["user"]) });
+                    disciplineList.Add(new Discipline() { Id = (int)reader["id"], Name = (string)reader["name"], UserText = (string)(reader["user"]) });
                 }
             }
             return disciplineList;

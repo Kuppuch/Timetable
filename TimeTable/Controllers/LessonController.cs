@@ -37,7 +37,7 @@ namespace TimeTable.Controllers {
                 else
                     return RedirectToAction("Index");
             } catch {
-                Console.WriteLine("Сюда бы добавить Log4Net, поннел?");
+                Console.WriteLine("Сюда бы не забыть добавить Log4Net!");
                 return RedirectToAction("Index");
             }
         }

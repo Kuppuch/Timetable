@@ -9,8 +9,16 @@
     width: 100%;
 }
 
+.w-50 {
+    width: 50%;
+}
+
 .p-2 {
     padding: 2rem !important;
+}
+
+.mt-1 {
+    margin-top: 1rem !important;
 }
 
 .m-2 {
@@ -19,6 +27,10 @@
 
 .m-1 {
     margin: 1rem !important;
+}
+
+.d-inline-block {
+    display: inline-block;
 }
 
 body {
@@ -214,6 +226,21 @@ a:hover {
 
 a:active {
 
+}
+
+.year {
+    background: #fff;
+    width: 30px;
+    height: 30px;
+    font-size: 17px;
+    border-radius: 4px;
+    border: solid 1px #abaaaa;
+    text-align: center;
+    padding: 5px 5px 7px 5px;
+}
+
+.w-79 {
+    width: 79%;
 }
 
 

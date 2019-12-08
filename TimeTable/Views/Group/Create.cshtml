@@ -1,0 +1,40 @@
+﻿@model TimeTable.Models.Group
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Создание</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group row">
+        <h4 >Группа</h4>
+        <div class="col-md d-inline-block mt-1">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+        <span class="year mt-1">
+            19
+        </span>
+        <div class="right w-79">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+
+    <div class="form-group col-md d-inline-block">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("< Вернуться к списку групп", "Index")
+</div>

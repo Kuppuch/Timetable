@@ -11,6 +11,7 @@ namespace TimeTable.Models {
 
         public int Id { get; set; }
         public string Name { get; set; }
-        public string User { get; set; }
+        public string UserText { get; set; }
+        public int User { get; set; }
     }
 }

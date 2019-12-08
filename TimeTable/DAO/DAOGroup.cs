@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using TimeTable.Models;
 using MySql.Data.MySqlClient;
+using System.Diagnostics;
 
 namespace TimeTable.DAO {
     public class DAOGroup : DAO {
@@ -24,6 +25,33 @@ namespace TimeTable.DAO {
             }
 
             return groupList;
+        }
+
+        public List<string> GetYears() {
+            List<string> year00 = new List<string>();
+            for (int i = 0; i < 5; i++) {
+                year00.Add(DateTime.Now.ToString("yy"));
+            }
+            return (year00);
+        }
+
+        public bool InsertGroup(Group g) {
+
+            if (connection.State != System.Data.ConnectionState.Open)
+                connection.Open();
+
+            try {
+                (new MySqlCommand("INSERT INTO `timetable`.`group` (`name`, `year`) VALUES ('" + g.Name + "','" + DateTime.Now.ToString("yy") + "');", connection))
+                .ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex) {
+                Debug.WriteLine(ex);
+
+                return false;
+            }
+
         }
 
     }
