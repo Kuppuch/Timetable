@@ -49,5 +49,34 @@ namespace TimeTable.DAO {
             return groupList;
         }
 
+        public static Group GetGroup(int Id) {
+            Group group = new Group();
+
+            if (connection.State != System.Data.ConnectionState.Open)
+                connection.Open();
+            using (var reader = (new MySqlCommand("SELECT * FROM `group` WHERE id = " + Id, connection)).ExecuteReader()) {
+                while (reader.Read())
+                    group = (new Group() {
+                        Id = (int)reader["Id"],
+                        Name = (string)reader["name"],
+                        Year = (int)reader["year"]
+                    });
+            }
+            return group;
+        }
+
+        public static bool DeleteGroup(int Id) {
+            if (connection.State != System.Data.ConnectionState.Open)
+                connection.Open();
+            try {
+                (new MySqlCommand("DELETE FROM `group` WHERE id = " + Id, connection)).ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex) {
+                Debug.WriteLine(ex);
+                return false;
+            }
+        }
+
     }
 }

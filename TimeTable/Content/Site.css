@@ -104,13 +104,6 @@ tr > td {
     background: #474e57
 }*/
 
-.timeout {
-    padding: 3px;
-    color: #333;
-    background: #edeef0;
-    text-align: left;
-}
-
 .discipline {
     float: none;
 }
@@ -239,8 +232,59 @@ a:active {
     padding: 5px 5px 7px 5px;
 }
 
+.w-100px {
+    width: 100px !important;
+}
+
 .w-79 {
     width: 79%;
 }
 
+.edit {
+    background: #fff;
+    border-radius: 6px;
+    padding: 2px;
+    border: 3px solid #dee2e6;
+}
+
+.edit a {
+    margin-right: 13px;
+}
+
+.edit a:last-of-type {
+    margin-right: 0;
+}
+
+.timeout {
+    padding: 3px;
+    color: #333;
+    background: #edeef0;
+    text-align: left;
+}
+
+.first {}
+
+.second {}
+
+.third {}
+
+.fourth {}
+
+.fifth {}
+
+.sixth {}
+
+.dtime {}
+
+.mon {}
+
+.tue {}
+
+.wed {}
+
+.thu {}
+
+.fri {}
+
+.time {}
 

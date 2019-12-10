@@ -8,11 +8,8 @@
         <p>Институт</p>
     </div>
     <div class="right">
-        <ul>
-            <li><button id="modalBtn" class="btn">Создать</button></li>
-            <li>@Html.ActionLink("Create New", "Create")</li>
-            <li>Редактировать</li>
-        </ul>
+            @*<<button id="modalBtn" class="btn">Создать</button>*@
+            @Html.ActionLink("Создать", "Create", null, new { @class = "btn m-1" })
     </div>
 
 </div>
@@ -36,29 +33,29 @@
         <th width="17%">Четверг</th>
         <th width="17%">Пятница</th>
     </tr>
-    <tr>
-        <td>8:30 - 10:00</td>
-        <td>
+    <tr class="first">
+        <td class="time">8:30 - 10:00</td>
+        <td class="mon">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>
         </td>
-        <td>
+        <td class="tue">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>
         </td>
-        <td>
+        <td class="wed">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>
         </td>
-        <td>
+        <td class="thu">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>
         </td>
-        <td>
+        <td class="fri">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>
@@ -67,29 +64,29 @@
     <tr>
         <td class="timeout" colspan="6">10:00 - 10:20  ПЕРЕМЕНА</td>
     </tr>
-    <tr>
-        <td>10:20 - 11:50</td>
-        <td>
+    <tr class="second">
+        <td class="time">10:20 - 11:50</td>
+        <td class="mon">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>
         </td>
-        <td>
+        <td class="tue">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>
         </td>
-        <td>
+        <td class="wed">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>
         </td>
-        <td>
+        <td class="thu">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>
         </td>
-        <td>
+        <td class="fri">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>
@@ -98,29 +95,29 @@
     <tr>
         <td class="timeout" colspan="6">11:50 - 12:10  ПЕРЕМЕНА</td>
     </tr>
-    <tr>
-        <td>12:10 - 13:40</td>
-        <td>
+    <tr class="third">
+        <td class="time">12:10 - 13:40</td>
+        <td class="mon">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>
         </td>
-        <td>
+        <td class="tue">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>
         </td>
-        <td>
+        <td class="wed">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>
         </td>
-        <td>
+        <td class="thu">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>
         </td>
-        <td>
+        <td class="fri">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>
@@ -129,29 +126,29 @@
     <tr>
         <td class="timeout" colspan="6">13:40 - 14:00  ПЕРЕМЕНА</td>
     </tr>
-    <tr>
-        <td>14:00 - 15:30</td>
-        <td>
+    <tr class="fourth">
+        <td class="time">14:00 - 15:30</td>
+        <td class="mon">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>
         </td>
-        <td>
+        <td class="tue">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>
         </td>
-        <td>
+        <td class="wed">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>
         </td>
-        <td>
+        <td class="thu">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>
         </td>
-        <td>
+        <td class="fri">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>
@@ -160,29 +157,29 @@
     <tr>
         <td class="timeout" colspan="6">15:30 - 15:50  ПЕРЕМЕНА</td>
     </tr>
-    <tr>
-        <td>15:50 - 17:20</td>
-        <td>
+    <tr class="fifth">
+        <td class="time">15:50 - 17:20</td>
+        <td class="mon">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>
         </td>
-        <td>
+        <td class="tue">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>
         </td>
-        <td>
+        <td class="wed">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>
         </td>
-        <td>
+        <td class="thu">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>
         </td>
-        <td>
+        <td class="fri">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>
@@ -191,29 +188,29 @@
     <tr>
         <td class="timeout" colspan="6">17:20 - 17:40  ПЕРЕМЕНА</td>
     </tr>
-    <tr>
-        <td>17:40 - 19:10</td>
-        <td>
+    <tr class="sixth">
+        <td class="time">17:40 - 19:10</td>
+        <td class="mon">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>
         </td>
-        <td>
+        <td class="tue">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>
         </td>
-        <td>
+        <td class="wed">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>
         </td>
-        <td>
+        <td class="thu">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>
         </td>
-        <td>
+        <td class="fri">
             <div>предмет</div>
             <div class="teacher">преп-ль</div>
             <div class="locate">аудитория</div>

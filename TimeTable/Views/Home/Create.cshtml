@@ -1,0 +1,220 @@
+﻿@model TimeTable.Models.Timetable
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Добавить</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Расписание</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Group, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <select name="Group" class="form-control">
+                <option value="-1" selected>Группы</option>
+                @foreach (var item in ((List<TimeTable.Models.Group>)ViewBag.Group)) {
+                <option value="@Html.DisplayFor(modelItem => item.Id)">
+                    @Html.DisplayFor(modelItem => item.Name)@Html.DisplayFor(modelItem => item.Year)
+                </option>
+                }
+            </select>
+            @Html.ValidationMessageFor(model => model.LessonText, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Lesson, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <select name="Lesson" class="form-control">
+                <option value="-1" selected>Занятия</option>
+                @foreach (var item in ((List<TimeTable.Models.Lesson>)ViewBag.Message)) {
+                    <option value="@Html.DisplayFor(modelItem => item.Id)">
+                        @Html.DisplayFor(modelItem => item.DisciplineText)
+                    </option>
+                }
+            </select>
+            @Html.ValidationMessageFor(model => model.Lesson, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Teacher, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.TeacherText, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TeacherText, "", new { @class = "text-danger" })
+        </div>   
+    </div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Numerator, htmlAttributes: new { @class = "control-label col-md-2" })
+    @*<label for="checkbox-num">Числитель</label>*@
+    <div class="col-md-10">
+        @*@Html.EditorFor(model => model.Numerator, new { htmlAttributes = new { @class = "form-control" } })*@
+        @Html.CheckBoxFor(model => model.Numerator, htmlAttributes: new { @class = "control-label", @id = "checkbox-num" })
+        @Html.ValidationMessageFor(model => model.Numerator, "", new { @class = "text-danger" })
+    </div>
+
+</div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+
+
+
+    <table>
+        <tr>
+            <th width="12%">Время</th>
+            <th width="17%">Понедельник</th>
+            <th width="17%">Вторник</th>
+            <th width="17%">Среда</th>
+            <th width="17%">Четверг</th>
+            <th width="17%">Пятница</th>
+        </tr>
+        <tr class="first">
+            <td class="time">8:30 - 10:00</td>
+            <td class="mon">
+                @Html.RadioButtonFor(model => model.LessonNumber, "1-1")
+            </td>
+            <td class="tue">
+                @Html.RadioButtonFor(model => model.LessonNumber, "2-1")
+            </td>
+            <td class="wed">
+                @Html.RadioButtonFor(model => model.LessonNumber, "3-1")
+            </td>
+            <td class="thu">
+                @Html.RadioButtonFor(model => model.LessonNumber, "4-1")
+            </td>
+            <td class="fri">
+                @Html.RadioButtonFor(model => model.LessonNumber, "5-1")
+            </td>
+        </tr>
+        <tr>
+            <td class="timeout" colspan="6">10:00 - 10:20  ПЕРЕМЕНА</td>
+        </tr>
+        <tr class="second">
+            <td class="time">10:20 - 11:50</td>
+            <td class="mon">
+                @Html.RadioButtonFor(model => model.LessonNumber, "1-2")
+            </td>
+            <td class="tue">
+                @Html.RadioButtonFor(model => model.LessonNumber, "2-2")
+            </td>
+            <td class="wed">
+                @Html.RadioButtonFor(model => model.LessonNumber, "3-2")
+            </td>
+            <td class="thu">
+                @Html.RadioButtonFor(model => model.LessonNumber, "4-2")
+            </td>
+            <td class="fri">
+                @Html.RadioButtonFor(model => model.LessonNumber, "5-2")
+            </td>
+        </tr>
+        <tr>
+            <td class="timeout" colspan="6">11:50 - 12:10  ПЕРЕМЕНА</td>
+        </tr>
+        <tr class="third">
+            <td class="time">12:10 - 13:40</td>
+            <td class="mon">
+                @Html.RadioButtonFor(model => model.LessonNumber, "1-3")
+            </td>
+            <td class="tue">
+                @Html.RadioButtonFor(model => model.LessonNumber, "2-3")
+            </td>
+            <td class="wed">
+                @Html.RadioButtonFor(model => model.LessonNumber, "3-3")
+            </td>
+            <td class="thu">
+                @Html.RadioButtonFor(model => model.LessonNumber, "4-3")
+            </td>
+            <td class="fri">
+                @Html.RadioButtonFor(model => model.LessonNumber, "5-3")
+            </td>
+        </tr>
+        <tr>
+            <td class="timeout" colspan="6">13:40 - 14:00  ПЕРЕМЕНА</td>
+        </tr>
+        <tr class="fourth">
+            <td class="time">14:00 - 15:30</td>
+            <td class="mon">
+                @Html.RadioButtonFor(model => model.LessonNumber, "1-4")
+            </td>
+            <td class="tue">
+                @Html.RadioButtonFor(model => model.LessonNumber, "2-4")
+            </td>
+            <td class="wed">
+                @Html.RadioButtonFor(model => model.LessonNumber, "3-4")
+            </td>
+            <td class="thu">
+                @Html.RadioButtonFor(model => model.LessonNumber, "4-4")
+            </td>
+            <td class="fri">
+                @Html.RadioButtonFor(model => model.LessonNumber, "5-4")
+            </td>
+        </tr>
+        <tr>
+            <td class="timeout" colspan="6">15:30 - 15:50  ПЕРЕМЕНА</td>
+        </tr>
+        <tr class="fifth">
+            <td class="time">15:50 - 17:20</td>
+            <td class="mon">
+                @Html.RadioButtonFor(model => model.LessonNumber, "1-5")
+            </td>
+            <td class="tue">
+                @Html.RadioButtonFor(model => model.LessonNumber, "2-5")
+            </td>
+            <td class="wed">
+                @Html.RadioButtonFor(model => model.LessonNumber, "3-5")
+            </td>
+            <td class="thu">
+                @Html.RadioButtonFor(model => model.LessonNumber, "4-5")
+            </td>
+            <td class="fri">
+                @Html.RadioButtonFor(model => model.LessonNumber, "5-5")
+            </td>
+        </tr>
+        <tr>
+            <td class="timeout" colspan="6">17:20 - 17:40  ПЕРЕМЕНА</td>
+        </tr>
+        <tr class="sixth">
+            <td class="time">17:40 - 19:10</td>
+            <td class="mon">
+                @Html.RadioButtonFor(model => model.LessonNumber, "1-6")
+            </td>
+            <td class="tue">
+                @Html.RadioButtonFor(model => model.LessonNumber, "2-6")
+            </td>
+            <td class="wed">
+                @Html.RadioButtonFor(model => model.LessonNumber, "3-6")
+            </td>
+            <td class="thu">
+                @Html.RadioButtonFor(model => model.LessonNumber, "4-6")
+            </td>
+            <td class="fri">
+                @Html.RadioButtonFor(model => model.LessonNumber, "5-6")
+            </td>
+        </tr>
+
+    </table>
+}
+
+<div>
+    @Html.ActionLink("< Вернуться к расписанию", "Index")
+</div>

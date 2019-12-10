@@ -30,10 +30,10 @@
         </div>
     </div>*@
 
+
     <div class="form-group">
         @Html.LabelFor(model => model.UserText, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-
+        <div class="col-md-10"
             <select name="User" class="form-control">
                 <option value="-1" selected>Выберите ...</option>
                 @foreach (var item in ((List<TimeTable.Models.User>)ViewBag.Message)) {

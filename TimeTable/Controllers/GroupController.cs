@@ -37,5 +37,16 @@ namespace TimeTable.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        public ActionResult Delete(int id) {
+            return View(DAOGroup.GetGroup(id));
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int id, FormCollection collection) {
+            if (ModelState.IsValid && DAOGroup.DeleteGroup(id))
+                return RedirectToAction("Index");
+            return View();
+        }
     }
 }

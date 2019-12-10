@@ -4,7 +4,7 @@
     ViewBag.Title = "Users";
 }
 
-<h2>Index</h2>
+<h2>Пользователи</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -15,10 +15,11 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.ActionLink("Group", "Index", "Group")
+            @Html.ActionLink("Группа", "Index", "Group")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserType)
+            @*@Html.DisplayNameFor(model => model.UserType)*@
+            Статус
         </th>
         <th></th>
     </tr>

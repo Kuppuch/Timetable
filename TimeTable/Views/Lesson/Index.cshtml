@@ -6,7 +6,7 @@
 
 <div class="editbar">
     <div class="left">
-        <h2>Lesson</h2>
+        <h2>Занятие</h2>
     </div>
     <div class="right">
         @Html.ActionLink("Создать", "Create", null, new { @class = "btn m-1" })
@@ -23,7 +23,8 @@
             @Html.ActionLink("Группы", "Index", "Group")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.GetLessons().First().Teacher)
+            @*@Html.DisplayNameFor(model => model.GetLessons().First().Teacher)*@
+            Преподаватель
         </th>
         <th></th>
     </tr>

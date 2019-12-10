@@ -13,7 +13,7 @@ namespace TimeTable.Controllers {
 
         // GET: Lesson
         public ActionResult Index() {
-            return View(daoLesson.GetLesson());
+            return View(daoLesson.GetLessonContainer());
         }
 
         public ActionResult Disc() {
@@ -25,7 +25,7 @@ namespace TimeTable.Controllers {
         }
 
         public ActionResult Create() {
-            ViewBag.Message = daoLesson.GetLesson();
+            ViewBag.Message = daoLesson.GetLessonContainer();
             return View(new Lesson());
         }
 

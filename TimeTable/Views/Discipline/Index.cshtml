@@ -4,11 +4,14 @@
     ViewBag.Title = "Discipline";
 }
 
-<h2>Discipline</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div class="editbar">
+    <div class="left">
+        <h2>Дисциплина</h2>
+    </div>
+    <div class="right">    
+            @Html.ActionLink("Создать", "Create", null, new { @class = "btn m-1" })
+    </div>
+</div>
 <table class="table">
     <tr>
         <th>

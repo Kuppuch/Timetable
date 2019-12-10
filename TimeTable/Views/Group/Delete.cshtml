@@ -1,0 +1,31 @@
+﻿@model TimeTable.Models.Group
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Удаление</h2>
+
+<h3>Вы действительно хотите удалить данную группу?</h3>
+<div>
+    <h4>Группа</h4>
+    <hr />
+    <dl class="">
+        <dt class="year mt-1 w-100px">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd class="year mt-1 w-100px">
+            @Html.DisplayFor(model => model.Name)@Html.DisplayFor(model => model.Year)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-default" /> |
+            @Html.ActionLink("< Вернуться к списку", "Index")
+        </div>
+    }
+</div>
