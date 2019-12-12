@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost
--- Время создания: Дек 07 2019 г., 15:37
+-- Время создания: Дек 12 2019 г., 22:46
 -- Версия сервера: 8.0.18
 -- Версия PHP: 7.4.0
 
@@ -57,7 +57,21 @@ INSERT INTO `discipline` (`id`, `name`, `user`) VALUES
 (16, 'История', 21),
 (17, 'Математика', 22),
 (18, 'Методы анализа данных', 23),
-(19, 'Методы и программные средства вычислений', 13);
+(19, 'Методы и программные средства вычислений', 13),
+(23, 'х', 17);
+
+-- --------------------------------------------------------
+
+--
+-- Дублирующая структура для представления `discipline_view`
+-- (См. Ниже фактическое представление)
+--
+CREATE TABLE `discipline_view` (
+`id` int(11)
+,`name` varchar(100)
+,`user_id` int(11)
+,`user` varchar(45)
+);
 
 -- --------------------------------------------------------
 
@@ -91,6 +105,39 @@ INSERT INTO `group` (`id`, `name`, `year`) VALUES
 (13, 'ИБ-1', 19),
 (14, 'ИСБ-1', 19),
 (15, 'ВТ-1', 19);
+
+--
+-- Триггеры `group`
+--
+DELIMITER $$
+CREATE TRIGGER `group_AFTER_DELETE` AFTER DELETE ON `group` FOR EACH ROW BEGIN
+	DELETE FROM `lesson` where `group` = OLD.`id`;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `group_BEFORE_DELETE` BEFORE DELETE ON `group` FOR EACH ROW BEGIN
+	DELETE FROM `lesson` where `group` = OLD.id;
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Дублирующая структура для представления `less`
+-- (См. Ниже фактическое представление)
+--
+CREATE TABLE `less` (
+`id` int(11)
+,`discipline_id` int(11)
+,`group_id` int(11)
+,`teacher_id` int(11)
+,`discipline` varchar(100)
+,`group` varchar(45)
+,`year` int(11)
+,`teacher` varchar(45)
+);
 
 -- --------------------------------------------------------
 
@@ -128,35 +175,81 @@ INSERT INTO `lesson` (`id`, `discipline`, `group`, `teacher`) VALUES
 (16, 16, 11, 21),
 (17, 17, 12, 22),
 (18, 18, 7, 23),
-(19, 19, 7, 13);
+(19, 19, 7, 13),
+(20, 15, 15, 23);
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `type_user`
+-- Структура таблицы `timetable`
 --
 
-CREATE TABLE `type_user` (
+CREATE TABLE `timetable` (
   `id` int(11) NOT NULL,
-  `name` varchar(45) NOT NULL
+  `lesson` int(11) NOT NULL,
+  `weekday` int(11) NOT NULL,
+  `numerator` tinyint(4) NOT NULL,
+  `number` int(11) NOT NULL,
+  `location` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `type_user`
+-- Дамп данных таблицы `timetable`
 --
 
-INSERT INTO `type_user` (`id`, `name`) VALUES
-(1, 'Студент'),
-(2, 'Преподаватель'),
-(3, 'Работник');
+INSERT INTO `timetable` (`id`, `lesson`, `weekday`, `numerator`, `number`, `location`) VALUES
+(1, 1, 1, 1, 1, '410-2'),
+(2, 2, 2, 1, 1, '410-2'),
+(3, 3, 3, 1, 2, '213-3'),
+(4, 4, 4, 1, 3, '213-3'),
+(5, 5, 5, 1, 2, '213-3'),
+(6, 6, 1, 0, 1, '213-3'),
+(7, 7, 2, 0, 2, '314-3'),
+(8, 8, 3, 0, 2, '410-2'),
+(9, 9, 4, 0, 3, '410-2'),
+(10, 10, 5, 0, 2, '414-2'),
+(11, 11, 1, 1, 2, '418-2'),
+(12, 12, 2, 1, 2, '314-3'),
+(13, 13, 3, 1, 1, '410-2'),
+(14, 14, 4, 1, 2, '403-1'),
+(15, 15, 5, 1, 1, '1'),
+(16, 16, 1, 0, 2, 'А-3'),
+(17, 17, 2, 0, 1, 'Б-3'),
+(18, 18, 3, 0, 1, '404а-2'),
+(19, 19, 4, 0, 2, '414-2'),
+(20, 20, 5, 1, 6, '101'),
+(21, 17, 4, 1, 6, 'Б-3'),
+(22, 16, 4, 1, 6, 'Ф-3'),
+(23, 17, 2, 0, 5, 'Ъ-3');
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `user`
+-- Дублирующая структура для представления `timetable_view`
+-- (См. Ниже фактическое представление)
+--
+CREATE TABLE `timetable_view` (
+`id` int(11)
+,`id_lesson` int(11)
+,`discipline` varchar(100)
+,`id_user` int(11)
+,`teacher` varchar(45)
+,`weekday` int(11)
+,`numerator` tinyint(4)
+,`number` int(11)
+,`location` varchar(45)
+,`id_group` int(11)
+,`group_name` varchar(45)
+,`group_year` int(11)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `users`
 --
 
-CREATE TABLE `user` (
+CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
   `group` int(11) DEFAULT NULL,
@@ -164,10 +257,10 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `user`
+-- Дамп данных таблицы `users`
 --
 
-INSERT INTO `user` (`id`, `name`, `group`, `type`) VALUES
+INSERT INTO `users` (`id`, `name`, `group`, `type`) VALUES
 (1, 'Куппе Р.О', 1, 1),
 (2, 'Савин М.К.', 1, 1),
 (3, 'Дмитриев М.А.', 1, 1),
@@ -191,6 +284,78 @@ INSERT INTO `user` (`id`, `name`, `group`, `type`) VALUES
 (21, 'Соловьёва В.В.', NULL, 2),
 (22, 'Дубровин Н.И.', NULL, 2),
 (23, 'Макаров Р.И.', NULL, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Дублирующая структура для представления `users_view`
+-- (См. Ниже фактическое представление)
+--
+CREATE TABLE `users_view` (
+`id` int(11)
+,`name` varchar(45)
+,`group` varchar(45)
+,`year` int(11)
+,`group_id` int(11)
+,`type_id` int(11)
+,`type` varchar(45)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `user_type`
+--
+
+CREATE TABLE `user_type` (
+  `id` int(11) NOT NULL,
+  `name` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `user_type`
+--
+
+INSERT INTO `user_type` (`id`, `name`) VALUES
+(1, 'Спец. по кадрам'),
+(2, 'Преподаватель'),
+(3, 'Студент');
+
+-- --------------------------------------------------------
+
+--
+-- Структура для представления `discipline_view`
+--
+DROP TABLE IF EXISTS `discipline_view`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `discipline_view`  AS  select `discipline`.`id` AS `id`,`discipline`.`name` AS `name`,`users`.`id` AS `user_id`,`users`.`name` AS `user` from (`discipline` join `users`) where (`discipline`.`user` = `users`.`id`) ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура для представления `less`
+--
+DROP TABLE IF EXISTS `less`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `less`  AS  select `lesson`.`id` AS `id`,`discipline`.`id` AS `discipline_id`,`group`.`id` AS `group_id`,`users`.`id` AS `teacher_id`,`discipline`.`name` AS `discipline`,`group`.`name` AS `group`,`group`.`year` AS `year`,`users`.`name` AS `teacher` from (((`discipline` join `lesson`) join `users`) join `group`) where ((`lesson`.`group` = `group`.`id`) and (`lesson`.`discipline` = `discipline`.`id`) and (`lesson`.`teacher` = `users`.`id`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура для представления `timetable_view`
+--
+DROP TABLE IF EXISTS `timetable_view`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `timetable_view`  AS  select `id` AS `id`,`lesson`.`id` AS `id_lesson`,`discipline`.`name` AS `discipline`,`users`.`id` AS `id_user`,`users`.`name` AS `teacher`,`weekday` AS `weekday`,`numerator` AS `numerator`,`number` AS `number`,`location` AS `location`,`group`.`id` AS `id_group`,`group`.`name` AS `group_name`,`group`.`year` AS `group_year` from ((((`timetable` join `lesson`) join `discipline`) join `users`) join `group` on((`lesson`.`group` = `group`.`id`))) where ((`lesson` = `lesson`.`id`) and (`lesson`.`discipline` = `discipline`.`id`) and (`discipline`.`user` = `users`.`id`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура для представления `users_view`
+--
+DROP TABLE IF EXISTS `users_view`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `users_view`  AS  select `users`.`id` AS `id`,`users`.`name` AS `name`,`group`.`name` AS `group`,`group`.`year` AS `year`,`group`.`id` AS `group_id`,`user_type`.`id` AS `type_id`,`user_type`.`name` AS `type` from ((`users` left join `group` on((`users`.`group` = `group`.`id`))) join `user_type`) where (`users`.`type` = `user_type`.`id`) ;
 
 --
 -- Индексы сохранённых таблиц
@@ -219,18 +384,25 @@ ALTER TABLE `lesson`
   ADD KEY `teacher_idx` (`teacher`);
 
 --
--- Индексы таблицы `type_user`
+-- Индексы таблицы `timetable`
 --
-ALTER TABLE `type_user`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `timetable`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `lesson_idx` (`lesson`);
 
 --
--- Индексы таблицы `user`
+-- Индексы таблицы `users`
 --
-ALTER TABLE `user`
+ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD KEY `group_idx` (`group`),
   ADD KEY `type_idx` (`type`);
+
+--
+-- Индексы таблицы `user_type`
+--
+ALTER TABLE `user_type`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT для сохранённых таблиц
@@ -240,31 +412,37 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT для таблицы `discipline`
 --
 ALTER TABLE `discipline`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT для таблицы `group`
 --
 ALTER TABLE `group`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT для таблицы `lesson`
 --
 ALTER TABLE `lesson`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- AUTO_INCREMENT для таблицы `type_user`
+-- AUTO_INCREMENT для таблицы `timetable`
 --
-ALTER TABLE `type_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT для таблицы `user`
---
-ALTER TABLE `user`
+ALTER TABLE `timetable`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT для таблицы `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT для таблицы `user_type`
+--
+ALTER TABLE `user_type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
@@ -274,7 +452,7 @@ ALTER TABLE `user`
 -- Ограничения внешнего ключа таблицы `discipline`
 --
 ALTER TABLE `discipline`
-  ADD CONSTRAINT `lecturer` FOREIGN KEY (`user`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `lecturer` FOREIGN KEY (`user`) REFERENCES `users` (`id`);
 
 --
 -- Ограничения внешнего ключа таблицы `lesson`
@@ -282,14 +460,20 @@ ALTER TABLE `discipline`
 ALTER TABLE `lesson`
   ADD CONSTRAINT `academic_group` FOREIGN KEY (`group`) REFERENCES `group` (`id`),
   ADD CONSTRAINT `discipline` FOREIGN KEY (`discipline`) REFERENCES `discipline` (`id`),
-  ADD CONSTRAINT `teacher` FOREIGN KEY (`teacher`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `teacher` FOREIGN KEY (`teacher`) REFERENCES `users` (`id`);
 
 --
--- Ограничения внешнего ключа таблицы `user`
+-- Ограничения внешнего ключа таблицы `timetable`
 --
-ALTER TABLE `user`
+ALTER TABLE `timetable`
+  ADD CONSTRAINT `lesson` FOREIGN KEY (`lesson`) REFERENCES `lesson` (`id`);
+
+--
+-- Ограничения внешнего ключа таблицы `users`
+--
+ALTER TABLE `users`
   ADD CONSTRAINT `group` FOREIGN KEY (`group`) REFERENCES `group` (`id`),
-  ADD CONSTRAINT `type` FOREIGN KEY (`type`) REFERENCES `type_user` (`id`);
+  ADD CONSTRAINT `type` FOREIGN KEY (`type`) REFERENCES `user_type` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

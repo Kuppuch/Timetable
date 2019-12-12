@@ -53,9 +53,7 @@
 
 <div class="form-group">
     @Html.LabelFor(model => model.Numerator, htmlAttributes: new { @class = "control-label col-md-2" })
-    @*<label for="checkbox-num">Числитель</label>*@
     <div class="col-md-10">
-        @*@Html.EditorFor(model => model.Numerator, new { htmlAttributes = new { @class = "form-control" } })*@
         @Html.CheckBoxFor(model => model.Numerator, htmlAttributes: new { @class = "control-label", @id = "checkbox-num" })
         @Html.ValidationMessageFor(model => model.Numerator, "", new { @class = "text-danger" })
     </div>

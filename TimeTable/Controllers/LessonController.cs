@@ -9,6 +9,7 @@ using TimeTable.Models;
 namespace TimeTable.Controllers {
     public class LessonController : Controller {
         DAOLesson daoLesson = new DAOLesson();
+        LessionContainer lc = new LessionContainer();
 
 
         // GET: Lesson
@@ -40,6 +41,10 @@ namespace TimeTable.Controllers {
                 Console.WriteLine("Сюда бы не забыть добавить Log4Net!");
                 return RedirectToAction("Index");
             }
+        }
+
+        public ActionResult Details(int id) {
+            return View(lc.GetLesson(id));
         }
 
     }

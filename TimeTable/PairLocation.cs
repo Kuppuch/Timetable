@@ -6,7 +6,7 @@ using System.Web;
 namespace TimeTable {
     public class PairLocation {
 
-        public string weekDay;
+        public int weekDay;
         public int pairNum;
 
     }

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<TimeTable.Models.Timetable>
+
+@{
+    ViewBag.Title = "Timetable";
+}
+
+<h2>Timetable</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LessonText)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TeacherText)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WeekDay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Numerator)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LessonNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GroupText)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LessonText)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TeacherText)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WeekDay)
+        </td>
+        <td>
+            @Html.Label(item.Numerator ? "ч" : "з");
+            @*@Html.LabelFor(modelItem => item.Numerator)*@
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LessonNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GroupText)@Html.DisplayFor(modelItem => item.GroupYear)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -17,7 +17,13 @@ namespace TimeTable.Controllers {
 
 
         public ActionResult Index() {
-            return View();
+            ViewBag.Group = DAOGroup.GetGroups();
+            ViewBag.Pairs = DAOTimetable.GetPairs();
+            return View(DAOTimetable.GetTimetable());
+        }
+
+        public ActionResult Timetable() {
+            return View(DAOTimetable.GetTimetable());
         }
 
         public ActionResult About() {

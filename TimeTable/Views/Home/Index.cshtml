@@ -1,30 +1,27 @@
-﻿@{
+﻿@*@model IEnumerable<TimeTable.Models.Timetable>*@
+@model IEnumerable<TimeTable.Models.Timetable>
+@{
     ViewBag.Title = "Home Page";
 }
 
 <div class="editbar">
     <div class="left">
-        <h1>Группа</h1>
-        <p>Институт</p>
+        <select name="Group" class="form-control mt-2">
+            <option value="-1" selected>Группы ...</option>
+            @foreach (var item in ((List<TimeTable.Models.Group>)ViewBag.Group)) {
+                <option value="@Html.DisplayFor(modelItem => item.Id)">
+                    @Html.DisplayFor(modelItem => item.Name)@Html.DisplayFor(modelItem => item.Year)
+                </option>
+            }
+        </select>
     </div>
     <div class="right">
-            @*<<button id="modalBtn" class="btn">Создать</button>*@
-            @Html.ActionLink("Создать", "Create", null, new { @class = "btn m-1" })
+        @Html.ActionLink("Создать", "Create", null, new { @class = "btn m-1" })
     </div>
 
 </div>
 
-
-<div id="modalWindow" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h3>Warning!</h3>
-        <p>Here will be useful information</p>
-
-    </div>
-</div>
-
-<table>
+@*<table>
     <tr>
         <th width="12%">Время</th>
         <th width="17%">Понедельник</th>
@@ -33,37 +30,41 @@
         <th width="17%">Четверг</th>
         <th width="17%">Пятница</th>
     </tr>
-    <tr class="first">
-        <td class="time">8:30 - 10:00</td>
-        <td class="mon">
-            <div>предмет</div>
-            <div class="teacher">преп-ль</div>
-            <div class="locate">аудитория</div>
-        </td>
-        <td class="tue">
-            <div>предмет</div>
-            <div class="teacher">преп-ль</div>
-            <div class="locate">аудитория</div>
-        </td>
-        <td class="wed">
-            <div>предмет</div>
-            <div class="teacher">преп-ль</div>
-            <div class="locate">аудитория</div>
-        </td>
-        <td class="thu">
-            <div>предмет</div>
-            <div class="teacher">преп-ль</div>
-            <div class="locate">аудитория</div>
-        </td>
-        <td class="fri">
-            <div>предмет</div>
-            <div class="teacher">преп-ль</div>
-            <div class="locate">аудитория</div>
-        </td>
-    </tr>
-    <tr>
-        <td class="timeout" colspan="6">10:00 - 10:20  ПЕРЕМЕНА</td>
-    </tr>
+    @foreach (var item in Model) {
+        <tr class="first">
+            <td class="time">8:30 - 10:00</td>
+
+            <td class="mon">
+                <div data-id="@Html.DisplayFor(modelItem => item.Id)">@Html.DisplayFor(modelItem => item.LessonText)</div>
+                <div data-id="@Html.DisplayFor(modelItem => item.Id)">@Html.DisplayFor(modelItem => item.TeacherText)</div>
+                <div data-id="@Html.DisplayFor(modelItem => item.Id)">@Html.DisplayFor(modelItem => item.Location)</div>
+            </td>
+            <td class="tue">
+                <div>предмет</div>
+                <div class="teacher">преп-ль</div>
+                <div class="locate">аудитория</div>
+            </td>
+            <td class="wed">
+                <div>предмет</div>
+                <div class="teacher">преп-ль</div>
+                <div class="locate">аудитория</div>
+            </td>
+            <td class="thu">
+                <div>предмет</div>
+                <div class="teacher">преп-ль</div>
+                <div class="locate">аудитория</div>
+            </td>
+            <td class="fri">
+                <div>предмет</div>
+                <div class="teacher">преп-ль</div>
+                <div class="locate">аудитория</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="timeout" colspan="6">10:00 - 10:20  ПЕРЕМЕНА</td>
+        </tr>
+    }
+
     <tr class="second">
         <td class="time">10:20 - 11:50</td>
         <td class="mon">
@@ -217,10 +218,34 @@
         </td>
     </tr>
 
+</table>*@
+
+
+<table>
+    <tr>
+        <th width="12%">Время</th>
+        <th width="17%">Понедельник</th>
+        <th width="17%">Вторник</th>
+        <th width="17%">Среда</th>
+        <th width="17%">Четверг</th>
+        <th width="17%">Пятница</th>
+    </tr>
+    @foreach (var item in (List<TimeTableLine>)ViewBag.Pairs) {
+        <tr>
+            <td>@Html.Label(item.timeStart)-@Html.Label(item.timeEnd)</td>
+            @foreach (var i in item.pairs) {
+                <td>
+                    <div>@Html.DisplayFor(modelItem => i.LessonText)</div>
+                    <div class="teacher">@Html.DisplayFor(modelItem => i.TeacherText)</div>
+                    <div class="locate">@Html.DisplayFor(modelItem => i.Location)</div>
+                </td>
+            }
+        </tr>
+    }
 </table>
 
 <div>
     <p>
-        @Html.ActionLink("Пользователи", "Contact")
+        @Html.ActionLink("Расписание", "Timetable")
     </p>
 </div>

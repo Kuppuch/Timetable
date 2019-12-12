@@ -35,6 +35,10 @@ namespace TimeTable {
             return daoLesson.InsertLesson(l);
         }
 
+        public List<Lesson> GetLesson(int Id) {
+            return lessons;
+        }
+
 
     }
 }

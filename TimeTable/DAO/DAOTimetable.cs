@@ -9,23 +9,22 @@ using TimeTable.Models;
 namespace TimeTable.DAO {
     public class DAOTimetable : DAO {
 
-        public List<Timetable> GetTimetable(string table = "Group") {
+        public static List<Timetable> GetTimetable() {
             //Connect();
             //Disconnect();
             List<Timetable> ttList = new List<Timetable>();
-            connection.Open();
+            if (connection.State != System.Data.ConnectionState.Open)
+                connection.Open();
 
             using (var reader = (new MySqlCommand("SELECT * FROM timetable_view", connection)).ExecuteReader()) {
                 while (reader.Read()) {
-                    Console.WriteLine(reader["id"]);
-
                     ttList.Add(new Timetable() {
                         Id = (int)reader["id"],
                         Lesson = (int)reader["id_lesson"],
                         LessonText = (string)reader["discipline"],
-                        WeekDay = (string)reader["weekday"],
-                        Numerator = (bool)reader["numerator"],
-                        LessonNumber = (string)reader["number"],
+                        WeekDay = (int)reader["weekday"],
+                        Numerator = reader.GetBoolean("numerator"),
+                        LessonNumber = reader.GetInt32("number") + "",
                         Location = (string)reader["location"],
                         Teacher = (int)reader["id_user"],
                         TeacherText = (string)reader["teacher"],
@@ -36,6 +35,10 @@ namespace TimeTable.DAO {
                 }
             }
             return ttList;
+        }
+
+        public static bool GetSQLNumerator(object i) {
+            return (byte)i == 1;
         }
 
         public bool InsertTimetable(Timetable t) {
@@ -71,16 +74,42 @@ namespace TimeTable.DAO {
             return count > 0; 
         }
 
-        private string[] WeekDays = new string[] { "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье" };
+        private static string[] WeekDays = new string[] { "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье" };
 
-        public PairLocation ParseLocation(Timetable t) {
+        public static PairLocation ParseLocation(Timetable t) {
             string[] location = t.LessonNumber.Split('-');
 
-            return new PairLocation() { weekDay = WeekDays[int.Parse(location[0]) - 1], pairNum = int.Parse(location[1]) };
+            return new PairLocation() { weekDay = int.Parse(location[0]), pairNum = int.Parse(location[1]) };
         }
 
         public int GetNumerator (Timetable t) {
             return t.Numerator ? 1 : 0;
+        }
+
+        public static List<TimeTableLine> GetPairs() {
+
+            var pairs = GetTimetable();
+
+            List<TimeTableLine> ttll = new List<TimeTableLine>();
+
+            TimeTableLine ttl;
+
+            int time = 8 * 60 + 30;
+
+            for (int l = 0; l < 6; l++) {
+                ttl = new TimeTableLine();
+                ttl.time = time;
+                for (int w = 0; w < 5; w++) {
+                    ttl.pairs.Add(pairs.Find((item) => {
+                        return item.LessonNumber == (l+1) + "" && item.WeekDay == (w+1);
+                    }) ?? new Timetable());
+                }
+                ttll.Add(ttl);
+                time += 1 * 60 + 30 + 20;
+            }
+
+            return ttll;
+
         }
     }
 }
