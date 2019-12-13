@@ -9,6 +9,7 @@ namespace TimeTable.Models {
         public int Id { get; set; }
         public int Discipline { get; set; }
         public int Group { get; set; }
+        [DisplayName("Преподаватель")]
         public int Teacher { get; set; }
 
         [DisplayName("Дисциплина")]
