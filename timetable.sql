@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost
--- Время создания: Дек 12 2019 г., 22:46
+-- Время создания: Дек 16 2019 г., 17:15
 -- Версия сервера: 8.0.18
 -- Версия PHP: 7.4.0
 
@@ -253,37 +253,38 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
   `group` int(11) DEFAULT NULL,
-  `type` int(11) NOT NULL
+  `type` int(11) NOT NULL,
+  `email` varchar(75) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `group`, `type`) VALUES
-(1, 'Куппе Р.О', 1, 1),
-(2, 'Савин М.К.', 1, 1),
-(3, 'Дмитриев М.А.', 1, 1),
-(4, 'Евдокимов С.П.', 2, 1),
-(5, 'Жаравина А.С.', 2, 1),
-(6, 'Шумейко Д.С.', 2, 1),
-(7, 'Кузин Д.В.', 3, 1),
-(8, 'Бурмистров Д.А.', 4, 1),
-(9, 'Волченков Д.Д.', 5, 1),
-(10, 'Вершинин В.В.', NULL, 2),
-(11, 'Жигалов И.Е.', NULL, 2),
-(12, 'Озерова М.И', NULL, 2),
-(13, 'Кириллова С.Ю.', NULL, 2),
-(14, 'Тимофеев А.А.', NULL, 2),
-(15, 'Шамышева О.Н.', NULL, 2),
-(16, 'Монахова Г.Е.', NULL, 2),
-(17, 'Бородина Е.К.', NULL, 2),
-(18, 'Проскурина Г.В.', NULL, 2),
-(19, 'Койкова Т.В.', NULL, 2),
-(20, 'Тарасевич О.Д.', NULL, 2),
-(21, 'Соловьёва В.В.', NULL, 2),
-(22, 'Дубровин Н.И.', NULL, 2),
-(23, 'Макаров Р.И.', NULL, 2);
+INSERT INTO `users` (`id`, `name`, `group`, `type`, `email`) VALUES
+(1, 'Савин М.К', 1, 3, 'kuppe@ro.man'),
+(2, 'Куппе Р.О', 1, 3, 'Mk@Sav.1n'),
+(3, 'Алексеев Р.И', NULL, 2, 'Alex@RI.ru'),
+(4, 'Антонов А.Х', NULL, 1, 'Antonov@Ah.ru'),
+(5, 'Жаравина А.С.', 2, 3, 'Zhar@vi.na'),
+(6, 'Шумейко Д.С.', 2, 3, 'Shum@eq.ko'),
+(7, 'Кузин Д.В.', 3, 3, 'kyzma@d.w'),
+(8, 'Бурмистров Д.А.', 4, 3, 'Bur@mirstr.off'),
+(9, 'Волченков Д.Д.', 5, 3, 'Wolf@.Chenk.off'),
+(10, 'Вершинин В.В.', NULL, 2, 'Vershinin@VV.VV'),
+(11, 'Жигалов И.Е.', NULL, 2, 'Zhigalov@.yandox.con'),
+(12, 'Озерова М.И', NULL, 2, 'Ozerova@MI.ru'),
+(13, 'Кириллова С.Ю.', NULL, 2, 'Kirillora@C.U'),
+(14, 'Тимофеев А.А.', NULL, 2, 'Wirbel@java.ru'),
+(15, 'Шамышева О.Н.', NULL, 2, 'Shamu@she.va'),
+(16, 'Монахова Г.Е.', NULL, 2, 'Monahova@GE.ru'),
+(17, 'Бородина Е.К.', NULL, 2, 'Borodina@EK.ru'),
+(18, 'Проскурина Г.В.', NULL, 2, 'Proskurina@java.ru'),
+(19, 'Койкова Т.В.', NULL, 2, 'Kojkova@yaho.eng'),
+(20, 'Тарасевич О.Д.', NULL, 2, 'Fizra@4ev.er'),
+(21, 'Соловьёва В.В.', NULL, 2, 'Histori@ya.ru'),
+(22, 'Дубровин Н.И.', NULL, 2, 'DobroWIN@mathwars.su'),
+(23, 'Макаров Р.И.', NULL, 2, 'Makarov@RI.ch');
 
 -- --------------------------------------------------------
 
@@ -297,6 +298,7 @@ CREATE TABLE `users_view` (
 ,`group` varchar(45)
 ,`year` int(11)
 ,`group_id` int(11)
+,`email` varchar(75)
 ,`type_id` int(11)
 ,`type` varchar(45)
 );
@@ -355,7 +357,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `users_view`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `users_view`  AS  select `users`.`id` AS `id`,`users`.`name` AS `name`,`group`.`name` AS `group`,`group`.`year` AS `year`,`group`.`id` AS `group_id`,`user_type`.`id` AS `type_id`,`user_type`.`name` AS `type` from ((`users` left join `group` on((`users`.`group` = `group`.`id`))) join `user_type`) where (`users`.`type` = `user_type`.`id`) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `users_view`  AS  select `users`.`id` AS `id`,`users`.`name` AS `name`,`group`.`name` AS `group`,`group`.`year` AS `year`,`group`.`id` AS `group_id`,`users`.`email` AS `email`,`user_type`.`id` AS `type_id`,`user_type`.`name` AS `type` from ((`users` left join `group` on((`users`.`group` = `group`.`id`))) join `user_type`) where (`users`.`type` = `user_type`.`id`) ;
 
 --
 -- Индексы сохранённых таблиц

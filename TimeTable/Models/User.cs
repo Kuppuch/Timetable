@@ -15,5 +15,6 @@ namespace TimeTable.Models {
         public string GroupText { get; set; }
         [DisplayName("Статус")]
         public string UserTypeText { get; set; }
+        public string Email { get; set; }
     }
 }

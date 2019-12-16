@@ -188,7 +188,6 @@ D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\bin\ru\System.Net.Http.Formatti
 D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\bin\ru\System.Web.Http.resources.dll
 D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\bin\ru\System.Web.Http.WebHost.resources.dll
 D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\obj\Debug\TimeTable.csprojAssemblyReference.cache
-D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\obj\Debug\TimeTable.csproj.CoreCompileInputs.cache
 D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\obj\Debug\TimeTable.csproj.CopyComplete
 D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\obj\Debug\TimeTable.dll
 D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\obj\Debug\TimeTable.pdb
