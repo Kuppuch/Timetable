@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost
--- Время создания: Дек 16 2019 г., 17:15
+-- Время создания: Дек 16 2019 г., 21:54
 -- Версия сервера: 8.0.18
 -- Версия PHP: 7.4.0
 
@@ -93,12 +93,12 @@ INSERT INTO `group` (`id`, `name`, `year`) VALUES
 (1, 'ПРИ-1', 17),
 (2, 'ИСТ-1', 17),
 (3, 'ИБ-1', 17),
-(4, 'ИСБ-1', 17),
+(4, 'ИСБ-1', 18),
 (5, 'ВТ-1', 17),
 (6, 'ПРИ-1', 18),
 (7, 'ИСТ-1', 18),
 (8, 'ИБ-1', 18),
-(9, 'ИСБ-1', 18),
+(9, 'ИСБ-1', 17),
 (10, 'ВТ-1', 18),
 (11, 'ПРИ-1', 19),
 (12, 'ИСТ-1', 19),
@@ -262,29 +262,30 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `group`, `type`, `email`) VALUES
-(1, 'Савин М.К', 1, 3, 'kuppe@ro.man'),
-(2, 'Куппе Р.О', 1, 3, 'Mk@Sav.1n'),
-(3, 'Алексеев Р.И', NULL, 2, 'Alex@RI.ru'),
-(4, 'Антонов А.Х', NULL, 1, 'Antonov@Ah.ru'),
-(5, 'Жаравина А.С.', 2, 3, 'Zhar@vi.na'),
-(6, 'Шумейко Д.С.', 2, 3, 'Shum@eq.ko'),
-(7, 'Кузин Д.В.', 3, 3, 'kyzma@d.w'),
-(8, 'Бурмистров Д.А.', 4, 3, 'Bur@mirstr.off'),
-(9, 'Волченков Д.Д.', 5, 3, 'Wolf@.Chenk.off'),
-(10, 'Вершинин В.В.', NULL, 2, 'Vershinin@VV.VV'),
-(11, 'Жигалов И.Е.', NULL, 2, 'Zhigalov@.yandox.con'),
+(1, 'Савин М.К', 1, 3, 'mksavin@mail.ru'),
+(2, 'Куппе Р.О', 1, 3, 'kuppa@ro.man'),
+(3, 'Алексеев Р.И', NULL, 2, 'alexseew@ivan.ivanov.ich'),
+(4, 'Антонов А.Х', NULL, 1, 'anton_ov@fiz.ha'),
+(5, 'Жаравина А.С', 2, 3, 'Zhar@vi.na'),
+(6, 'Шумейко Д.С', 2, 3, 'Shum@eq.ko'),
+(7, 'Кузин Д.В', 3, 3, 'kyzma@d.w'),
+(8, 'Бурмистров Д.А', 4, 3, 'Bur@mirstr.off'),
+(9, 'Волченков Д.Д', 5, 3, 'Wolf@.Chenk.off'),
+(10, 'Вершинин В.В', NULL, 2, 'Vershinin@VV.VV'),
+(11, 'Жигалов И.Е', NULL, 2, 'Zhigalov@.yandox.con'),
 (12, 'Озерова М.И', NULL, 2, 'Ozerova@MI.ru'),
-(13, 'Кириллова С.Ю.', NULL, 2, 'Kirillora@C.U'),
-(14, 'Тимофеев А.А.', NULL, 2, 'Wirbel@java.ru'),
-(15, 'Шамышева О.Н.', NULL, 2, 'Shamu@she.va'),
-(16, 'Монахова Г.Е.', NULL, 2, 'Monahova@GE.ru'),
-(17, 'Бородина Е.К.', NULL, 2, 'Borodina@EK.ru'),
-(18, 'Проскурина Г.В.', NULL, 2, 'Proskurina@java.ru'),
-(19, 'Койкова Т.В.', NULL, 2, 'Kojkova@yaho.eng'),
-(20, 'Тарасевич О.Д.', NULL, 2, 'Fizra@4ev.er'),
-(21, 'Соловьёва В.В.', NULL, 2, 'Histori@ya.ru'),
-(22, 'Дубровин Н.И.', NULL, 2, 'DobroWIN@mathwars.su'),
-(23, 'Макаров Р.И.', NULL, 2, 'Makarov@RI.ch');
+(13, 'Кириллова С.Ю', NULL, 2, 'Kirillora@C.U'),
+(14, 'Тимофеев А.А', NULL, 2, 'Wirbel@java.ru'),
+(15, 'Шамышева О.Н', NULL, 2, 'Shamu@she.va'),
+(16, 'Монахова Г.Е', NULL, 2, 'Monahova@GE.ru'),
+(17, 'Бородина Е.К', NULL, 2, 'Borodina@EK.ru'),
+(18, 'Проскурина Г.В', NULL, 2, 'Proskurina@java.ru'),
+(19, 'Койкова Т.В', NULL, 2, 'Kojkova@yaho.eng'),
+(20, 'Тарасевич О.Д', NULL, 2, 'Fizra@4ev.er'),
+(21, 'Соловьёва В.В', NULL, 2, 'Histori@ya.ru'),
+(22, 'Дубровин Н.И', NULL, 2, 'DobroWIN@mathwars.su'),
+(23, 'Макаров Р.И', NULL, 2, 'Makarov@RI.ch'),
+(24, 'Дмитриев М.А', NULL, 3, 'dmitriev@miha.ill');
 
 -- --------------------------------------------------------
 
@@ -438,7 +439,7 @@ ALTER TABLE `timetable`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT для таблицы `user_type`

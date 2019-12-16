@@ -16,6 +16,15 @@ namespace AttendanceAPISync {
             UpdateDatabase();
             Console.ReadKey();
 
+            /*
+             * /api/session/create
+                master      - преп-ль (id'шник)
+                userType    - тип конечных польз (id'шник)
+                groups      - список групп конечных польз (через запятую, id'шники)
+                activeTime  - время активности в секундах (стандартное - 20)
+                activeAt    - дата начала активности (YYYY.MM.DD HH:MM:SS)
+             */
+
         }
 
         static string BaseDir() {

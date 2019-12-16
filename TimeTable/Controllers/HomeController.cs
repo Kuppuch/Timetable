@@ -17,8 +17,10 @@ namespace TimeTable.Controllers {
 
 
         public ActionResult Index() {
+            var group_id = Convert.ToInt32(Request.QueryString["group_id"]);
+            ViewBag.ActiveGroup = group_id;
             ViewBag.Group = DAOGroup.GetGroups();
-            ViewBag.Pairs = DAOTimetable.GetPairs();
+            ViewBag.Pairs = DAOTimetable.GetPairs(group_id);
             return View(DAOTimetable.GetTimetable());
         }
 

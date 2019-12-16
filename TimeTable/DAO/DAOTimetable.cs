@@ -9,14 +9,14 @@ using TimeTable.Models;
 namespace TimeTable.DAO {
     public class DAOTimetable : DAO {
 
-        public static List<Timetable> GetTimetable() {
+        public static List<Timetable> GetTimetable(int group_id = 0) {
             //Connect();
             //Disconnect();
             List<Timetable> ttList = new List<Timetable>();
             if (connection.State != System.Data.ConnectionState.Open)
                 connection.Open();
 
-            using (var reader = (new MySqlCommand("SELECT * FROM timetable_view", connection)).ExecuteReader()) {
+            using (var reader = (new MySqlCommand("SELECT * FROM timetable_view" + (group_id > 0 ? " WHERE id_group = " + group_id : ""), connection)).ExecuteReader()) {
                 while (reader.Read()) {
                     ttList.Add(new Timetable() {
                         Id = (int)reader["id"],
@@ -86,9 +86,9 @@ namespace TimeTable.DAO {
             return t.Numerator ? 1 : 0;
         }
 
-        public static List<TimeTableLine> GetPairs() {
+        public static List<TimeTableLine> GetPairs(int group_id = 0) {
 
-            var pairs = GetTimetable();
+            var pairs = GetTimetable(group_id);
 
             List<TimeTableLine> ttll = new List<TimeTableLine>();
 
