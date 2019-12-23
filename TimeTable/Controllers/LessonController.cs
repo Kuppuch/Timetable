@@ -13,6 +13,7 @@ namespace TimeTable.Controllers {
 
 
         // GET: Lesson
+        [Authorize]
         public ActionResult Index() {
             return View(daoLesson.GetLessonContainer());
         }
@@ -25,6 +26,7 @@ namespace TimeTable.Controllers {
             return View(DAOGroup.GetGroups());
         }
 
+        [Authorize]
         public ActionResult Create() {
             ViewBag.Message = daoLesson.GetLessonContainer();
             return View(new Lesson());
@@ -43,8 +45,35 @@ namespace TimeTable.Controllers {
             }
         }
 
+        [Authorize]
         public ActionResult Details(int id) {
             return View(lc.GetLesson(id));
+        }
+
+        [Authorize]
+        public ActionResult Delete(int id) {
+            return View(DAOLesson.GetLesson(id));
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int id, FormCollection collection) {
+            if (ModelState.IsValid && DAOLesson.DeleteLesson(id))
+                return RedirectToAction("Index");
+            return View();
+        }
+
+        // GET: Home/Edit/5
+        public ActionResult Edit(int id) {
+            ViewBag.Message = daoLesson.GetLessonContainer();
+            return View(DAOLesson.GetLesson(id));
+        }
+
+        // POST: Home/Edit/5
+        [HttpPost]
+        public ActionResult Edit([Bind(Include = "Discipline, Group, Teacher")]Lesson lesson) {
+            if (ModelState.IsValid && DAOLesson.EditLesson(lesson))
+                return RedirectToAction("Index");
+            return View();
         }
 
     }

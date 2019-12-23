@@ -7,7 +7,9 @@ using System.Web;
 namespace TimeTable.Models {
     public class Lesson {
         public int Id { get; set; }
+        [DisplayName("id дисциплины")]
         public int Discipline { get; set; }
+        [DisplayName("id группы")]
         public int Group { get; set; }
         [DisplayName("Преподаватель")]
         public int Teacher { get; set; }

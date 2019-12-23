@@ -6,15 +6,13 @@ using System.Web;
 
 namespace TimeTable.Models {
     public class Discipline {
-        //private int id;
-        //private string name;
-        //private string user;
 
         public int Id { get; set; }
         [DisplayName("Название")]
         public string Name { get; set; }
         [DisplayName("Преподаватель")]
         public string UserText { get; set; }
+        [DisplayName("id преподавателя")]
         public int User { get; set; }
     }
 }

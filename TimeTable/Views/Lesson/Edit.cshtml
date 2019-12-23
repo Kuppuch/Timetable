@@ -1,77 +1,100 @@
 ﻿@model TimeTable.Models.Lesson
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Редактировать";
 }
 
-<h2>Edit</h2>
+<h2>Редактирование</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>Lesson</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
+<div class="form-horizontal">
+    <h4>Занятие</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Discipline, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Discipline, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Discipline, "", new { @class = "text-danger" })
-            </div>
+    @*<div class="form-group">
+        @Html.LabelFor(model => model.DisciplineText, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DisciplineText, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DisciplineText, "", new { @class = "text-danger" })
         </div>
+    </div>*@
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Group, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Group, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Group, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Teacher, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Teacher, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Teacher, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DisciplineText, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DisciplineText, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DisciplineText, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.GroupText, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.GroupText, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.GroupText, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TeacherText, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TeacherText, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TeacherText, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <p class="control-label col-md-2"><b>Дисциплина</b></p>
+        <div class="col-md-10">
+            <select name="Discipline" class="form-control">
+                <option value="-1" selected> @Html.DisplayFor(model => model.DisciplineText)</option>
+                @foreach (var item in ((LessionContainer)ViewBag.Message).GetDisciplines()) {
+                    <option value="@Html.DisplayFor(modelItem => item.Id)">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </option>
+                }
+            </select>
+            @Html.ValidationMessageFor(model => model.Discipline, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    @*<div class="form-group">
+        @Html.LabelFor(model => model.GroupText, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.GroupText, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.GroupText, "", new { @class = "text-danger" })
+        </div>
+    </div>*@
+
+    <div class="form-group">
+        <p class="control-label col-md-2"><b>Группы</b></p>
+        <div class="col-md-10">
+            <select name="Group" class="form-control">
+                <option value="-1" selected> @Html.DisplayFor(model => model.GroupText)</option>
+                @foreach (var item in ((LessionContainer)ViewBag.Message).GetGroups()) {
+                    <option value="@Html.DisplayFor(modelItem => item.Id)">
+                        @Html.DisplayFor(modelItem => item.Name)@Html.DisplayFor(modelItem => item.Year)
+                    </option>
+                }
+            </select>
+            @Html.ValidationMessageFor(model => model.Group, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    @*<div class="form-group">
+        @Html.LabelFor(model => model.TeacherText, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TeacherText, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TeacherText, "", new { @class = "text-danger" })
+        </div>
+    </div>*@
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Teacher, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+
+            <select name="Teacher" class="form-control">
+                <option value="-1" selected>@Html.DisplayFor(model => model.TeacherText)</option>
+                @foreach (var item in ((LessionContainer)ViewBag.Message).GetUsers()) {
+                    <option value="@Html.DisplayFor(modelItem => item.Id)">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </option>
+                }
+            </select>
+            @Html.ValidationMessageFor(model => model.Teacher, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Сохранить" class="btn btn-default" />
+        </div>
+    </div>
+</div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("< Вернуться к списку", "Index")
 </div>

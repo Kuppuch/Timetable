@@ -286,3 +286,26 @@ D:\Users\Roman\КП ТП\Timetable\TimeTable\obj\Debug\TimeTable.csproj.CoreComp
 D:\Users\Roman\КП ТП\Timetable\TimeTable\obj\Debug\TimeTable.csproj.CopyComplete
 D:\Users\Roman\КП ТП\Timetable\TimeTable\obj\Debug\TimeTable.dll
 D:\Users\Roman\КП ТП\Timetable\TimeTable\obj\Debug\TimeTable.pdb
+D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\bin\EntityFramework.dll
+D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\bin\EntityFramework.SqlServer.dll
+D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\bin\Microsoft.AspNet.Identity.Core.dll
+D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\bin\System.Web.Providers.dll
+D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\bin\EntityFramework.xml
+D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\bin\EntityFramework.SqlServer.xml
+D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\bin\Microsoft.AspNet.Identity.Core.xml
+D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\bin\System.Web.Providers.xml
+D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\bin\Microsoft.AspNet.Identity.Owin.dll
+D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\bin\Microsoft.Owin.dll
+D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\bin\Microsoft.Owin.Security.Cookies.dll
+D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\bin\Microsoft.Owin.Security.dll
+D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\bin\Microsoft.Owin.Security.OAuth.dll
+D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\bin\Owin.dll
+D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\bin\System.Web.Http.Owin.dll
+D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\bin\Microsoft.AspNet.Identity.Owin.xml
+D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\bin\Microsoft.Owin.xml
+D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\bin\Microsoft.Owin.Security.xml
+D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\bin\Microsoft.Owin.Security.Cookies.xml
+D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\bin\Microsoft.Owin.Security.OAuth.xml
+D:\Roman\Учёбка\3К1С\КП_ТП\TimeTable\bin\System.Web.Http.Owin.xml

@@ -1,50 +1,49 @@
 ﻿@model TimeTable.Models.Discipline
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Создать";
 }
 
-<h2>Create</h2>
+<h2>Создание</h2>
 
-@using (Html.BeginForm()) 
-{
+@using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     
-<div class="form-horizontal">
-    <h4>Discipline</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        <h4>Дисциплина</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
         <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.UserText, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                <select name="User" class="form-control">
+                    <option value="-1" selected>Выберите ...</option>
+                    @foreach (var item in ((List<TimeTable.Models.User>)ViewBag.Message)) {
+                        <option value="@Html.DisplayFor(modelItem => item.Id)">
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </option>
+                    }
+                </select>
+                @Html.ValidationMessageFor(model => model.UserText, "", new { @class = "text-danger" })
             </div>
         </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.UserText, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10"
-            <select name="User" class="form-control">
-                <option value="-1" selected>Выберите ...</option>
-                @foreach (var item in ((List<TimeTable.Models.User>)ViewBag.Message)) {
-                    <option value="@Html.DisplayFor(modelItem => item.Id)">
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </option>
-                }
-            </select>
-            @Html.ValidationMessageFor(model => model.UserText, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Создать" class="btn btn-default" />
+            </div>
         </div>
     </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
-        </div>
-    </div>
-</div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("< Вернуться к списку дисциплин", "Index")
 </div>

@@ -8,22 +8,6 @@ using TimeTable.Models;
 
 namespace TimeTable.DAO {
     public class DAOUser : DAO {
-        public bool InsertUser(string name, int year) { 
-
-            try {
-
-                Debug.WriteLine("INSERT INTO group (name, year) VALUES (" + name + ", " + year + ")");
-                (new MySqlCommand("INSERT INTO [Table] (Movie, Room, Name, Row, Place) VALUES (" + name + ", " + year + ")", Connection))
-                .ExecuteNonQuery();
-                return true;
-            }
-            catch (Exception ex) {
-                Debug.WriteLine(ex);
-
-                return false;
-            }
-
-        }
 
         public List<User> GetUsers(string selectCondition = "") {
             //Connect();
@@ -52,6 +36,22 @@ namespace TimeTable.DAO {
 
         public static List<User> GetTeachers() {
             return new DAOUser().GetUsers("WHERE `type_id` = 2 ORDER BY name");
+        }
+
+        public static User GetUser(string Email) {
+            User user = new User();
+            if (connection.State != System.Data.ConnectionState.Open)
+                connection.Open();
+
+            using (var reader = (new MySqlCommand("SELECT * from `users_view` where email = '" + Email + "'", connection)).ExecuteReader()) {
+                while (reader.Read()) {
+                    user.Id = (int)reader["id"];
+                    user.UserType = (int)reader["type_id"];
+                    user.Email = (string)reader["email"];
+                }
+
+            }
+        return user;
         }
     }
 }

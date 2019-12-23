@@ -12,6 +12,7 @@ namespace TimeTable.Controllers
         DAOUser daoUser = new DAOUser();
 
         // GET: User
+        [Authorize]
         public ActionResult Index()
         {
             return View(daoUser.GetUsers());

@@ -6,9 +6,6 @@
 
 <h2>Пользователи</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -18,7 +15,6 @@
             @Html.ActionLink("Группа", "Index", "Group")
         </th>
         <th>
-            @*@Html.DisplayNameFor(model => model.UserType)*@
             Статус
         </th>
         <th></th>
@@ -35,11 +31,11 @@
         <td data-id="@Html.DisplayFor(modelItem => item.UserType)">
             @Html.DisplayFor(modelItem => item.UserTypeText)
         </td>
-        <td>
+        @*<td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
+        </td>*@
     </tr>
 }
 

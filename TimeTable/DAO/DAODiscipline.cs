@@ -44,5 +44,54 @@ namespace TimeTable.DAO {
 
         }
 
+        public static Discipline GetDiscipline(int Id) {
+            Discipline discipline = new Discipline();
+            if (connection.State != System.Data.ConnectionState.Open)
+                connection.Open();
+
+            using (var reader = (new MySqlCommand("SELECT * FROM discipline_view WHERE id = " + Id, connection)).ExecuteReader()) {
+                while (reader.Read())
+                    discipline = (new Discipline() {
+                        Id = (int)reader["id"],
+                        Name = (string)reader["name"],
+                        User = (int)reader["user_id"],
+                        UserText = (string)reader["user"]
+                    });
+            }
+            return discipline;
+        }
+
+        public static bool DeleteDiscipline(int Id) {
+            if (connection.State != System.Data.ConnectionState.Open)
+                connection.Open();
+            try {
+                (new MySqlCommand("DELETE FROM `discipline` WHERE id = " + Id, connection)).ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex) {
+                Debug.WriteLine(ex);
+                return false;
+            }
+        }
+
+        public static bool EditDiscipline(Discipline d) {
+
+            if (connection.State != System.Data.ConnectionState.Open)
+                connection.Open();
+
+            try {
+                (new MySqlCommand("UPDATE `timetable`.`discipline` SET (`name` = '" + d.Name + "', `user` = '" + d.User + "')  WHERE `id` ='" + d.Id + "'", connection))
+                .ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex) {
+                Debug.WriteLine(ex);
+
+                return false;
+            }
+
+        }
+
     }
 }

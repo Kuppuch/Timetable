@@ -73,14 +73,14 @@ namespace TimeTable.DAO {
             return lessonList;
         }
 
-        public static List<Lesson> GetLesson(int Id) {
-            List<Lesson> lessonList = new List<Lesson>();
+        public static Lesson GetLesson(int Id) {
+            Lesson lesson = new Lesson();
             if (connection.State != System.Data.ConnectionState.Open)
                 connection.Open();
-            //using (var reader = (new MySqlCommand("SELECT users.fullname, group.name, user_type.type FROM users i", connection)).ExecuteReader()) {
-            using (var reader = (new MySqlCommand("SELECT * FROM less WHERE id = " + Id + " ORDER BY `discipline`;", connection)).ExecuteReader()) {
-                while (reader.Read()) {
-                    lessonList.Add(new Lesson() {
+
+            using (var reader = (new MySqlCommand("SELECT * FROM less WHERE id = " + Id, connection)).ExecuteReader()) {
+                while (reader.Read())
+                    lesson = (new Lesson() {
                         Id = (int)reader["id"],
                         Discipline = (int)reader["discipline_id"],
                         Group = (int)reader["group_id"],
@@ -89,9 +89,40 @@ namespace TimeTable.DAO {
                         GroupText = (string)(reader["group"]) + (int)(reader["year"]),
                         TeacherText = (string)reader["teacher"]
                     });
-                }
             }
-            return lessonList;
+            return lesson;
+        }
+
+        public static bool DeleteLesson(int Id) {
+            if (connection.State != System.Data.ConnectionState.Open)
+                connection.Open();
+            try {
+                (new MySqlCommand("DELETE FROM `lesson` WHERE id = " + Id, connection)).ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex) {
+                Debug.WriteLine(ex);
+                return false;
+            }
+        }
+
+        public static bool EditLesson(Lesson l) {
+
+            if (connection.State != System.Data.ConnectionState.Open)
+                connection.Open();
+
+            try {
+                (new MySqlCommand("UPDATE `timetable`.`lesson` SET (`group` = '" + l.Group + "', `discipline` = '" + l.Discipline + "', `teacher` = '" + l.Teacher + "') WHERE `id` ='" + l.Id + "'", connection))
+                .ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex) {
+                Debug.WriteLine(ex);
+
+                return false;
+            }
+
         }
     }
 }

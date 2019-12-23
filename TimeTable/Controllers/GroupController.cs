@@ -14,11 +14,13 @@ namespace TimeTable.Controllers
         DAOGroup daoGroup = new DAOGroup();
 
         // GET: Group
+        [Authorize]
         public ActionResult Index()
         {
             return View(DAOGroup.GetGroups());
         }
 
+        [Authorize]
         public ActionResult Create() {
             ViewBag.Message = DAOGroup.GetYears();
             return View(new Group());
@@ -38,6 +40,7 @@ namespace TimeTable.Controllers
             }
         }
 
+        [Authorize]
         public ActionResult Delete(int id) {
             return View(DAOGroup.GetGroup(id));
         }
