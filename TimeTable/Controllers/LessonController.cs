@@ -9,11 +9,9 @@ using TimeTable.Models;
 namespace TimeTable.Controllers {
     public class LessonController : Controller {
         DAOLesson daoLesson = new DAOLesson();
-        LessionContainer lc = new LessionContainer();
-
 
         // GET: Lesson
-        [Authorize]
+        [Authorize(Roles = "Спец. по кадрам, Преподаватель")]
         public ActionResult Index() {
             return View(daoLesson.GetLessonContainer());
         }
@@ -26,7 +24,7 @@ namespace TimeTable.Controllers {
             return View(DAOGroup.GetGroups());
         }
 
-        [Authorize]
+        [Authorize(Roles = "Спец. по кадрам")]
         public ActionResult Create() {
             ViewBag.Message = daoLesson.GetLessonContainer();
             return View(new Lesson());
@@ -35,22 +33,22 @@ namespace TimeTable.Controllers {
         [HttpPost]
         public ActionResult Create([Bind(Exclude = "Id")] Lesson dl) {
             try {
-                if (daoLesson.InsertLesson(dl)) 
+                if (daoLesson.InsertLesson(dl))
                     return RedirectToAction("Index");
                 else
                     return RedirectToAction("Index");
-            } catch {
-                Console.WriteLine("Сюда бы не забыть добавить Log4Net!");
+            } catch(Exception ex) {
+                Logger.Logger.Log.Info("Не удалось создать заполнить клетку расписания: " + ex);
                 return RedirectToAction("Index");
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "Спец. по кадрам, Преподаватель")]
         public ActionResult Details(int id) {
-            return View(lc.GetLesson(id));
+            return View(DAOLesson.GetLesson(id));
         }
 
-        [Authorize]
+        [Authorize(Roles = "Спец. по кадрам")]
         public ActionResult Delete(int id) {
             return View(DAOLesson.GetLesson(id));
         }
@@ -63,6 +61,7 @@ namespace TimeTable.Controllers {
         }
 
         // GET: Home/Edit/5
+        [Authorize(Roles = "Спец. по кадрам")]
         public ActionResult Edit(int id) {
             ViewBag.Message = daoLesson.GetLessonContainer();
             return View(DAOLesson.GetLesson(id));

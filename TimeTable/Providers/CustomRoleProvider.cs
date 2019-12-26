@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using TimeTable.Models;
+using TimeTable.Models.Context;
 
 namespace TimeTable.Providers {
     public class CustomRoleProvider : RoleProvider {
@@ -31,56 +32,32 @@ namespace TimeTable.Providers {
 
 
         public override string[] GetRolesForUser(string username) {
-            string[] roles = new string[] { };
-
             using (UserContext db = new UserContext()) {
-                User user = db.Users.FirstOrDefault(u => u.Email == username);
+                var user = db.Users.FirstOrDefault(u => u.email == username);
                 if (user != null) {
-                    UserType usertype = db.UserTypes.Find(user.UserType);
+                    UserTypeData usertype = db.UserTypes.Find(user.type);
                     if (usertype != null)
-                        roles = new string[] { usertype.Name };
+                        return new string[] { usertype.name };
                 }
             }
-            return roles;
 
-        }
+            return new string[] { };
 
-        public static bool HasRole(int id, string[] roles) {
-            using (UserContext db = new UserContext()) {
-                User user = db.Users.FirstOrDefault(u => u.Id == id);
-                if (user != null) {
-                    UserType usertype = db.UserTypes.Find(user.UserType);
-                    if (usertype != null) {
-                        foreach (var role in roles) {
-                            if (usertype.Name.ToLower() == role.ToLower()) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-            return false;
-
-        }
-
-        public static bool HasRole(int id, string role) {
-            return HasRole(id, new string[] { role });
         }
 
         public override string[] GetUsersInRole(string roleName) {
             throw new NotImplementedException();
         }
 
-        public override bool IsUserInRole(string username, string roleName) {
+        public override bool IsUserInRole(string email, string roleName) {
 
             bool outputResult = false;
             using (UserContext db = new UserContext()) {
-                User user = db.Users.FirstOrDefault(u => u.Email == username);
+                UserData user = db.Users.FirstOrDefault(u => u.email == email);
                 if (user != null) {
-                    UserType usertype = db.UserTypes.Find(user.UserType);
-                    if (usertype != null && usertype.Name == roleName)
+                    UserTypeData usertype = db.UserTypes.Find(user.type);
+                    if (usertype != null && usertype.name == roleName)
                         return outputResult = true;
-
                 }
             }
             return outputResult;

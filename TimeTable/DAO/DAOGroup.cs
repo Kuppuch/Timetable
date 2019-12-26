@@ -10,17 +10,19 @@ namespace TimeTable.DAO {
     public class DAOGroup : DAO {
 
         public static List<string> GetYears() {
-            List<string> year00 = new List<string>();
+            List<string> years = new List<string>();
+            DateTime now = DateTime.Now;
+
             for (int i = 0; i < 5; i++) {
-                year00.Add(DateTime.Now.ToString("yy"));
+                years.Add(now.ToString("yy"));
+                now = now.AddYears(1);
             }
-            return (year00);
+
+            return years;
         }
 
         public bool InsertGroup(Group g) {
-
-            if (connection.State != System.Data.ConnectionState.Open)
-                connection.Open();
+            CheckConnection();
 
             try {
                 (new MySqlCommand("INSERT INTO `timetable`.`group` (`name`, `year`) VALUES ('" + g.Name + "','" + DateTime.Now.ToString("yy") + "');", connection))
@@ -29,17 +31,15 @@ namespace TimeTable.DAO {
                 return true;
             }
             catch (Exception ex) {
-                Debug.WriteLine(ex);
-
+                Logger.Logger.Log.Info("Добавить группу не удалось: " + ex.Message);
                 return false;
             }
 
         }
 
         public static List<Group> GetGroups() {
+            CheckConnection();
             List<Group> groupList = new List<Group>();
-            if (connection.State != System.Data.ConnectionState.Open)
-                connection.Open();
 
             using (var reader = (new MySqlCommand("SELECT * FROM timetable.group", connection)).ExecuteReader()) {
                 while (reader.Read()) {
@@ -50,10 +50,9 @@ namespace TimeTable.DAO {
         }
 
         public static Group GetGroup(int Id) {
+            CheckConnection();
             Group group = new Group();
 
-            if (connection.State != System.Data.ConnectionState.Open)
-                connection.Open();
             using (var reader = (new MySqlCommand("SELECT * FROM `group` WHERE id = " + Id, connection)).ExecuteReader()) {
                 while (reader.Read())
                     group = (new Group() {
@@ -66,16 +65,16 @@ namespace TimeTable.DAO {
         }
 
         public static bool DeleteGroup(int Id) {
-            if (connection.State != System.Data.ConnectionState.Open)
-                connection.Open();
+            CheckConnection();
+
             try {
                 (new MySqlCommand("DELETE FROM `group` WHERE id = " + Id, connection)).ExecuteNonQuery();
                 return true;
+            } catch (Exception ex) {
+                Logger.Logger.Log.Info("Удалить группу не удалось: " + ex.Message);
             }
-            catch (Exception ex) {
-                Debug.WriteLine(ex);
-                return false;
-            }
+
+            return false;
         }
 
     }

@@ -10,28 +10,22 @@ using System.Net;
 using System.Web;
 using System.Web.Configuration;
 using TimeTable.DAO;
+using TimeTable.Models.Context;
 
 namespace TimeTable.Models {
     public class UserContext : DbContext {
-        public UserContext() :
-        base("DefaultConnection") { }
+        public UserContext() : base("DefaultConnection") { }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<UserType> UserTypes { get; set; }
+        public DbSet<UserData> Users { get; set; }
+        public DbSet<UserTypeData> UserTypes { get; set; }
 
         public static bool CheckUser(string email, string password) {
             NameValueCollection config = WebConfigurationManager.AppSettings;
             using (WebClient wc = new WebClient()) {
                 var json = wc.DownloadString(string.Format(config["api_userCheck"], email, password));
                 dynamic jsonObject = JObject.Parse(json);
-                InputUT();
                 return jsonObject["result"] == "true";
             }
-        }
-
-        public static void InputUT() {
-            List<UserType> list = new List<UserType>();
-            list = DAOUserType.GetUserTypies();
         }
 
     }

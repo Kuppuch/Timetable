@@ -24,19 +24,11 @@
         </div>
     </div>
 
-    @*<div class="form-group">
-        @Html.LabelFor(model => model.UserText, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.UserText, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.UserText, "", new { @class = "text-danger" })
-        </div>
-    </div>*@
-
     <div class="form-group">
         @Html.LabelFor(model => model.UserText, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
 
-            <select name="Teacher" class="form-control">
+            <select name="User" class="form-control">
                 <option value="-1" selected>@Html.DisplayFor(model => model.UserText)</option>
                 @foreach (var item in ((List<TimeTable.Models.User>)ViewBag.Message)) {
                     <option value="@Html.DisplayFor(modelItem => item.Id)">
@@ -47,14 +39,6 @@
             @Html.ValidationMessageFor(model => model.UserText, "", new { @class = "text-danger" })
         </div>
     </div>
-
-    @*<div class="form-group">
-        @Html.LabelFor(model => model.User, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.User, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.User, "", new { @class = "text-danger" })
-        </div>
-    </div>*@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

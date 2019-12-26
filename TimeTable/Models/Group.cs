@@ -6,9 +6,6 @@ using System.ComponentModel;
 
 namespace TimeTable.Models {
     public class Group {
-        private int id;
-        private string name;
-        private int year;
 
         public int Id { get; set; }
         [DisplayName("Название")]

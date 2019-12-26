@@ -14,14 +14,11 @@ namespace TimeTable.DAO {
             try {
                 if (connection.State == System.Data.ConnectionState.Closed)
                     connection.Open();
-                Console.WriteLine("ПОДКЛЮЧЕНО");
-                //Logger.InitLogger();
-                //Logger.Log.Info("Подключение к БД прошло успешно");
+
+                Logger.Logger.Log.Info("Подключение к БД установлено");
             }
             catch (Exception e) {
-                //Logger.InitLogger();
-                //Logger.Log.Info(e.Message + "Подключение к БД не установлено");
-                Console.WriteLine("НЕ ПОДКЛЮЧЕНО" + e);
+                Logger.Logger.Log.Info("Подключение к БД не установлено: " + e.Message);
             }
 
         }
@@ -29,12 +26,22 @@ namespace TimeTable.DAO {
         public static void Disconnect() {
             if (connection.State == System.Data.ConnectionState.Open) {
                 connection.Close();
-                Console.WriteLine("ОТКЛЮЧЕНО");
+
+                Logger.Logger.Log.Info("Подключение к БД разорвано");
+            } else {
+
+                Logger.Logger.Log.Info("Подключение к БД разорвать не удалось");
             }
-                
-            Console.WriteLine("НЕ ОТКЛЮЧЕНО");
-            //Logger.InitLogger();
-            //Logger.Log.Info("Подключение к БД разорвано");
+        }
+
+        public static bool CheckConnection() {
+            if (connection.State != System.Data.ConnectionState.Open) {
+                connection.Open();
+
+                return true;
+            }
+
+            return false;
         }
     }
 }

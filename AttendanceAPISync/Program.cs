@@ -36,10 +36,13 @@ namespace AttendanceAPISync {
                 var url = settings.IniReadValue("url", "usersAside");
                 var studentUserType = settings.IniReadValue("common", "studentUserType");
                 var json = wc.DownloadString(url);
+
                 dynamic asideObject = JObject.Parse(json);
+
                 dynamic users = asideObject["users"];
                 dynamic types = asideObject["types"];
                 dynamic groups = asideObject["groups"];
+
                 User u;
                 List<User> lUsers = new List<User>();
                 foreach (dynamic user in users) {
@@ -53,6 +56,7 @@ namespace AttendanceAPISync {
                     lUsers.Add(u);
                     //Console.WriteLine(user["name"]);
                 }
+
                 UserType ut;
                 List<UserType> lUsersType = new List<UserType>();
                 foreach (dynamic type in types) {
@@ -63,6 +67,7 @@ namespace AttendanceAPISync {
                     lUsersType.Add(ut);
                     //Console.WriteLine(type["name"]);
                 }
+
                 Group g;
                 List<Group> lGroup = new List<Group>();
                 foreach (dynamic group in groups) {
@@ -72,7 +77,6 @@ namespace AttendanceAPISync {
                         Year = Convert.ToInt32(group["year"])
                     };
                     lGroup.Add(g);
-                    //Console.WriteLine(group["name"]);
                 }
 
                 // Для пользователей, групп и типов пользователей отдельно:
@@ -82,20 +86,19 @@ namespace AttendanceAPISync {
                 
                 API:   DB:
 
-                ..           -- для тех, которые есть в API, но нет в БД. -> Добавляешь в БД
+                ..           -- для тех, которые есть в API, но нет в БД. -> Добавление в БД
                 ..      
-                ..     ..    -- для тех, которые есть и там и там -> Обновляешь в БД по id'шникам
+                ..     ..    -- для тех, которые есть и там и там -> Обновление в БД по id'шникам
                 ..     ..
                 ..     ..
                 ..     ..
-                       ..    -- для тех, которые есть в БД, но нет в API. -> Удаляешь из БД
+                       ..    -- для тех, которые есть в БД, но нет в API. -> Удаление из БД
                        ..
 
                  */
 
-                // Получаешь из БД список id
 
-                List<int> usersFromDB = new List<int>(); // SELECT `id` FROM `users` .. foreach(..) { usersFromDB.add(reader.GetInt32("id")) }
+                List<int> usersFromDB = new List<int>();
                 if (connection.State != System.Data.ConnectionState.Open)
                     connection.Open();
 
@@ -211,6 +214,13 @@ namespace AttendanceAPISync {
 
                 Console.WriteLine("База данных обновлена");
             }
+        }
+
+
+        public static void SendTimetable() {
+
+
+
         }
 
     }

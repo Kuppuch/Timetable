@@ -14,7 +14,7 @@
 <div class="editbar">
     <div class="left">
         <select name="Group" id="group-select" class="form-control mt-2">
-            <option value="-1" selected>Группы ...</option>
+            @*<option value="-1" selected>Группы ...</option>*@
             @foreach (var item in ((List<TimeTable.Models.Group>)ViewBag.Group)) {
                 if ((int)ViewBag.ActiveGroup == item.Id) {
                     <option value="@Html.DisplayFor(modelItem => item.Id)" selected>
@@ -47,7 +47,7 @@
             <td>@Html.Label(item.timeStart)-@Html.Label(item.timeEnd)</td>
             @foreach (var i in item.pairs) {
                 <td>
-                    <div>@Html.DisplayFor(modelItem => i.LessonText) <b>@(i.Numerator ? "ч" : "з")</b></div>
+                    <div>@Html.DisplayFor(modelItem => i.LessonText) <b>@(i.Id != 0 ? (i.Numerator ? "ч" : "з" ) : "")</b></div>
                     <div class="teacher"><b>@Html.DisplayFor(modelItem => i.TeacherText)</b></div>
                     <div class="locate">@Html.DisplayFor(modelItem => i.Location)</div>
                 </td>

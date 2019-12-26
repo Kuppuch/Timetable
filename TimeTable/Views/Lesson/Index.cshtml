@@ -23,8 +23,7 @@
             @Html.ActionLink("Группы", "Index", "Group")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.GetLessons().First().Teacher)
-            @*Преподаватель*@
+            @Html.DisplayNameFor(model => Model.GetLessons()[0].Teacher)
         </th>
         <th></th>
     </tr>

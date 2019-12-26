@@ -10,11 +10,8 @@ namespace TimeTable.DAO {
     public class DAOTimetable : DAO {
 
         public static List<Timetable> GetTimetable(int group_id = 0) {
-            //Connect();
-            //Disconnect();
+            CheckConnection();
             List<Timetable> ttList = new List<Timetable>();
-            if (connection.State != System.Data.ConnectionState.Open)
-                connection.Open();
 
             using (var reader = (new MySqlCommand("SELECT * FROM timetable_view" + (group_id > 0 ? " WHERE id_group = " + group_id : ""), connection)).ExecuteReader()) {
                 while (reader.Read()) {
@@ -42,24 +39,22 @@ namespace TimeTable.DAO {
         }
 
         public bool InsertTimetable(Timetable t) {
+            CheckConnection();
 
-            if (connection.State != System.Data.ConnectionState.Open)
-                connection.Open();
             if (CheckTimetable(t))
                 return false;
+
             try {
                 PairLocation pl = ParseLocation(t);
                 (new MySqlCommand("INSERT INTO `timetable`.`timetable` (`lesson`, `weekday`, `numerator`, `number`, `location`) VALUES ('" + t.Lesson + "', '" + pl.weekDay + "', '" + (t.Numerator ? 1 : 0) + "','" + pl.pairNum + "','" + t.Location + "');", connection))
                 .ExecuteNonQuery();
 
                 return true;
-            }
-            catch (Exception ex) {
-                Debug.WriteLine(ex);
-
-                return false;
+            } catch (Exception ex) {
+                // ЛОГГЕР
             }
 
+            return false;
         }
 
         public bool CheckTimetable(Timetable t) {
@@ -71,6 +66,7 @@ namespace TimeTable.DAO {
                     count = (long)reader["count"];
                 }
             }
+
             return count > 0; 
         }
 
@@ -87,7 +83,6 @@ namespace TimeTable.DAO {
         }
 
         public static List<TimeTableLine> GetPairs(int group_id = 0) {
-
             var pairs = GetTimetable(group_id);
 
             List<TimeTableLine> ttll = new List<TimeTableLine>();
@@ -109,7 +104,6 @@ namespace TimeTable.DAO {
             }
 
             return ttll;
-
         }
     }
 }

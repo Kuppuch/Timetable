@@ -349,7 +349,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `timetable_view`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `timetable_view`  AS  select `id` AS `id`,`lesson`.`id` AS `id_lesson`,`discipline`.`name` AS `discipline`,`users`.`id` AS `id_user`,`users`.`name` AS `teacher`,`weekday` AS `weekday`,`numerator` AS `numerator`,`number` AS `number`,`location` AS `location`,`group`.`id` AS `id_group`,`group`.`name` AS `group_name`,`group`.`year` AS `group_year` from ((((`timetable` join `lesson`) join `discipline`) join `users`) join `group` on((`lesson`.`group` = `group`.`id`))) where ((`lesson` = `lesson`.`id`) and (`lesson`.`discipline` = `discipline`.`id`) and (`discipline`.`user` = `users`.`id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `timetable_view` AS  select `timetable`.`id` AS `id`,`lesson`.`id` AS `id_lesson`,`discipline`.`name` AS `discipline`,`users`.`id` AS `id_user`,`users`.`name` AS `teacher`,`weekday` AS `weekday`,`numerator` AS `numerator`,`number` AS `number`,`location` AS `location`,`group`.`id` AS `id_group`,`group`.`name` AS `group_name`,`group`.`year` AS `group_year` from ((((`timetable` join `lesson`) join `discipline`) join `users`) join `group` on((`lesson`.`group` = `group`.`id`))) where ((`lesson` = `lesson`.`id`) and (`lesson`.`discipline` = `discipline`.`id`) and (`discipline`.`user` = `users`.`id`)) ;
 
 -- --------------------------------------------------------
 

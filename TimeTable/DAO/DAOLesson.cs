@@ -9,12 +9,10 @@ using System.Diagnostics;
 namespace TimeTable.DAO {
     public class DAOLesson : DAO {
 
-        public LessionContainer GetLessonContainer(string table = "Discipline") {
+        public LessionContainer GetLessonContainer() {
+            CheckConnection();
             List<Lesson> lessonList = new List<Lesson>();
-            if (connection.State != System.Data.ConnectionState.Open)
-                connection.Open();
 
-            //using (var reader = (new MySqlCommand("SELECT users.fullname, group.name, user_type.type FROM users i", connection)).ExecuteReader()) {
             using (var reader = (new MySqlCommand("SELECT * FROM less;", connection)).ExecuteReader()) {
                 while (reader.Read()) {
                     lessonList.Add(new Lesson() {
@@ -34,28 +32,24 @@ namespace TimeTable.DAO {
         }
 
         public bool InsertLesson(Lesson l) {
-
-            if (connection.State != System.Data.ConnectionState.Open)
-                connection.Open();
+            CheckConnection();
 
             try {
                 (new MySqlCommand("INSERT INTO `timetable`.`lesson` (`group`, `discipline`, `teacher`) VALUES ('" + l.Group + "', '" + l.Discipline + "', '" + l.Teacher + "');", connection))
                 .ExecuteNonQuery();
 
                 return true;
-            }
-            catch (Exception ex) {
-                Debug.WriteLine(ex);
-
-                return false;
+            } catch (Exception ex) {
+                Logger.Logger.Log.Info("Не удалось добавить занятие. " + ex);
             }
 
+            return false;
         }
 
         public static List<Lesson> GetLessons() {
+            CheckConnection();
             List<Lesson> lessonList = new List<Lesson>();
-            if (connection.State != System.Data.ConnectionState.Open)
-                connection.Open();
+
             //using (var reader = (new MySqlCommand("SELECT users.fullname, group.name, user_type.type FROM users i", connection)).ExecuteReader()) {
             using (var reader = (new MySqlCommand("SELECT * FROM less ORDER BY `discipline`;", connection)).ExecuteReader()) {
                 while (reader.Read()) {
@@ -74,9 +68,8 @@ namespace TimeTable.DAO {
         }
 
         public static Lesson GetLesson(int Id) {
+            CheckConnection();
             Lesson lesson = new Lesson();
-            if (connection.State != System.Data.ConnectionState.Open)
-                connection.Open();
 
             using (var reader = (new MySqlCommand("SELECT * FROM less WHERE id = " + Id, connection)).ExecuteReader()) {
                 while (reader.Read())
@@ -94,35 +87,30 @@ namespace TimeTable.DAO {
         }
 
         public static bool DeleteLesson(int Id) {
-            if (connection.State != System.Data.ConnectionState.Open)
-                connection.Open();
+            CheckConnection();
+
             try {
                 (new MySqlCommand("DELETE FROM `lesson` WHERE id = " + Id, connection)).ExecuteNonQuery();
                 return true;
+            } catch (Exception ex) {
+                Logger.Logger.Log.Info("Не удалось удалить занятие. " + ex);
             }
-            catch (Exception ex) {
-                Debug.WriteLine(ex);
-                return false;
-            }
+            return false;
         }
 
         public static bool EditLesson(Lesson l) {
-
-            if (connection.State != System.Data.ConnectionState.Open)
-                connection.Open();
+            CheckConnection();
 
             try {
                 (new MySqlCommand("UPDATE `timetable`.`lesson` SET (`group` = '" + l.Group + "', `discipline` = '" + l.Discipline + "', `teacher` = '" + l.Teacher + "') WHERE `id` ='" + l.Id + "'", connection))
                 .ExecuteNonQuery();
 
                 return true;
-            }
-            catch (Exception ex) {
-                Debug.WriteLine(ex);
-
-                return false;
+            } catch (Exception ex) {
+                Logger.Logger.Log.Info("Не удалось редактировать занятие. " + ex);
             }
 
+            return false;
         }
     }
 }

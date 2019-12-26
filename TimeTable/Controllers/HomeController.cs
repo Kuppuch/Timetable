@@ -2,34 +2,28 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using TimeTable.DAO;
 using TimeTable.Models;
 using TimeTable.Providers;
+using TimeTable.Logger;
 
 namespace TimeTable.Controllers {
     public class HomeController : Controller {
 
         DAOTimetable daoTimetable = new DAOTimetable();
 
-        //[Authorize(Roles= "Спец. по кадрам, Преподаватель, Студент")]
-        public ActionResult Index(LoginModel model) {
+        [Authorize(Roles = "Спец. по кадрам, Преподаватель, Студент")]
+        public ActionResult Index() {
+            var group_id = Convert.ToInt32(Request.QueryString["group_id"] ?? "1");
 
-            //User user;
-            //user = DAOUser.GetUser(model.Email);
-            ////var userID = DAOUser.GetUser(model.Email).Id; /*User.Identity.Id ?? 0+"");*/
-            //var userID = user.Id;
-            //if (!CustomRoleProvider.HasRole(userID, new string[] { "Спец. по кадрам", "Преподаватель", "Студент" })) {
-            //    return Redirect("/Account/Login");
-            //}
-
-            var group_id = Convert.ToInt32(Request.QueryString["group_id"]);
             ViewBag.ActiveGroup = group_id;
             ViewBag.Group = DAOGroup.GetGroups();
             ViewBag.Pairs = DAOTimetable.GetPairs(group_id);
+
             return View(DAOTimetable.GetTimetable());
-           
         }
 
         public ActionResult Timetable() {
@@ -42,16 +36,11 @@ namespace TimeTable.Controllers {
             return View();
         }
 
-        public ActionResult Contact() {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
-        [Authorize]
+        [Authorize(Roles = "Спец. по кадрам")]
         public ActionResult Create() {
             ViewBag.Message = DAOLesson.GetLessons();
             ViewBag.Group = DAOGroup.GetGroups();
+
             return View(new Timetable() { Numerator = true });
         }
 
@@ -62,9 +51,8 @@ namespace TimeTable.Controllers {
                     return RedirectToAction("Index");
                 else
                     return RedirectToAction("Index");
-            }
-            catch {
-                Console.WriteLine("Сюда бы не забыть добавить Log4Net!");
+            } catch {
+                Logger.Logger.Log.Info("Не удалось добавить занятие в таблицу расписания");
                 return RedirectToAction("Index");
             }
         }
