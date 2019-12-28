@@ -46,12 +46,12 @@ namespace TimeTable.DAO {
 
             try {
                 PairLocation pl = ParseLocation(t);
-                (new MySqlCommand("INSERT INTO `timetable`.`timetable` (`lesson`, `weekday`, `numerator`, `number`, `location`) VALUES ('" + t.Lesson + "', '" + pl.weekDay + "', '" + (t.Numerator ? 1 : 0) + "','" + pl.pairNum + "','" + t.Location + "');", connection))
+                (new MySqlCommand("INSERT INTO `timetable`.`timetable` (`lesson`, `weekday`, `numerator`, `number`, `location`, `published`) VALUES ('" + t.Lesson + "', '" + pl.weekDay + "', '" + (t.Numerator ? 1 : 0) + "','" + pl.pairNum + "','" + t.Location + "', 0);", connection))
                 .ExecuteNonQuery();
 
                 return true;
             } catch (Exception ex) {
-                // ЛОГГЕР
+                Logger.Logger.Log.Info("Не удалось добавить дисциплину: " + ex.Message);
             }
 
             return false;
@@ -69,8 +69,6 @@ namespace TimeTable.DAO {
 
             return count > 0; 
         }
-
-        private static string[] WeekDays = new string[] { "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье" };
 
         public static PairLocation ParseLocation(Timetable t) {
             string[] location = t.LessonNumber.Split('-');
@@ -105,5 +103,22 @@ namespace TimeTable.DAO {
 
             return ttll;
         }
+
+        public bool Publish(bool state = true) {
+            CheckConnection();
+
+            try {
+                (new MySqlCommand("UPDATE `timetable`.`timetable` SET `published` = " + (state ? 1 : 0) + " WHERE `published` = " + (!state ? 1 : 0), connection))
+                .ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex) {
+                Logger.Logger.Log.Info("Не удалось управлять расписанием. " + ex);
+            }
+
+            return false;
+        }
+
     }
 }

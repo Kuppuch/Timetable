@@ -18,4 +18,10 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="settings.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

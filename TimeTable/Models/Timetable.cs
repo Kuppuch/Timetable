@@ -29,5 +29,7 @@ namespace TimeTable.Models {
         [DisplayName("Группа")]
         public string GroupText { get; set; }
         public int GroupYear { get; set; }
+
+        public int Published { get; set; }
     }
 }

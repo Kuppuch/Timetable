@@ -10,30 +10,6 @@ namespace TimeTable.DAO {
 
         public static MySqlConnection Connection { get; set; }
 
-        public static void Connect() {
-            try {
-                if (connection.State == System.Data.ConnectionState.Closed)
-                    connection.Open();
-
-                Logger.Logger.Log.Info("Подключение к БД установлено");
-            }
-            catch (Exception e) {
-                Logger.Logger.Log.Info("Подключение к БД не установлено: " + e.Message);
-            }
-
-        }
-
-        public static void Disconnect() {
-            if (connection.State == System.Data.ConnectionState.Open) {
-                connection.Close();
-
-                Logger.Logger.Log.Info("Подключение к БД разорвано");
-            } else {
-
-                Logger.Logger.Log.Info("Подключение к БД разорвать не удалось");
-            }
-        }
-
         public static bool CheckConnection() {
             if (connection.State != System.Data.ConnectionState.Open) {
                 connection.Open();

@@ -15,7 +15,7 @@ namespace TimeTable.Controllers {
 
         DAOTimetable daoTimetable = new DAOTimetable();
 
-        [Authorize(Roles = "Спец. по кадрам, Преподаватель, Студент")]
+        [Authorize(Roles = "Спец. по кадрам, Преподаватель")]
         public ActionResult Index() {
             var group_id = Convert.ToInt32(Request.QueryString["group_id"] ?? "1");
 
@@ -53,6 +53,20 @@ namespace TimeTable.Controllers {
                     return RedirectToAction("Index");
             } catch {
                 Logger.Logger.Log.Info("Не удалось добавить занятие в таблицу расписания");
+                return RedirectToAction("Index");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Index(int Group, string Submit) {
+            try {
+                if (daoTimetable.Publish(Submit != "Отозвать"))
+                    return RedirectToAction("Index");
+                else
+                    return RedirectToAction("Index");
+            }
+            catch (Exception ex) {
+                Logger.Logger.Log.Info("Не опкбликовать расписание: " + ex);
                 return RedirectToAction("Index");
             }
         }

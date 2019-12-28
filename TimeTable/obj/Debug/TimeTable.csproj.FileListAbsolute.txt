@@ -648,3 +648,6 @@ D:\Roman\Учёбка\3К1С\КП_Rubicon2.0\Timetable\Timetable\obj\Debug\TimeT
 D:\Roman\Учёбка\3К1С\КП_Rubicon2.0\Timetable\Timetable\obj\Debug\TimeTable.pdb
 D:\Roman\Учёбка\3К1С\КП_Rubicon2.0\Timetable\Timetable\bin\log4net.dll
 D:\Roman\Учёбка\3К1С\КП_Rubicon2.0\Timetable\Timetable\bin\log4net.xml
+D:\Roman\Учёбка\3К1С\КП_Rubicon2.0\Timetable\TimeTable\bin\nunit.framework.dll
+D:\Roman\Учёбка\3К1С\КП_Rubicon2.0\Timetable\TimeTable\bin\nunit.framework.pdb
+D:\Roman\Учёбка\3К1С\КП_Rubicon2.0\Timetable\TimeTable\bin\nunit.framework.xml

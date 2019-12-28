@@ -50,7 +50,6 @@ namespace TimeTable.DAO {
             CheckConnection();
             List<Lesson> lessonList = new List<Lesson>();
 
-            //using (var reader = (new MySqlCommand("SELECT users.fullname, group.name, user_type.type FROM users i", connection)).ExecuteReader()) {
             using (var reader = (new MySqlCommand("SELECT * FROM less ORDER BY `discipline`;", connection)).ExecuteReader()) {
                 while (reader.Read()) {
                     lessonList.Add(new Lesson() {
@@ -102,7 +101,7 @@ namespace TimeTable.DAO {
             CheckConnection();
 
             try {
-                (new MySqlCommand("UPDATE `timetable`.`lesson` SET (`group` = '" + l.Group + "', `discipline` = '" + l.Discipline + "', `teacher` = '" + l.Teacher + "') WHERE `id` ='" + l.Id + "'", connection))
+                (new MySqlCommand("UPDATE `timetable`.`lesson` SET `group` = '" + l.Group + "', `discipline` = '" + l.Discipline + "', `teacher` = '" + l.Teacher + "' WHERE `id` ='" + l.Id + "'", connection))
                 .ExecuteNonQuery();
 
                 return true;

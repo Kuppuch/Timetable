@@ -12,25 +12,33 @@
     });
 </script>
 <div class="editbar">
-    <div class="left">
-        <select name="Group" id="group-select" class="form-control mt-2">
-            @*<option value="-1" selected>Группы ...</option>*@
-            @foreach (var item in ((List<TimeTable.Models.Group>)ViewBag.Group)) {
-                if ((int)ViewBag.ActiveGroup == item.Id) {
-                    <option value="@Html.DisplayFor(modelItem => item.Id)" selected>
-                        @Html.DisplayFor(modelItem => item.Name)@Html.DisplayFor(modelItem => item.Year)
-                    </option>
-                } else {
-                    <option value="@Html.DisplayFor(modelItem => item.Id)">
-                        @Html.DisplayFor(modelItem => item.Name)@Html.DisplayFor(modelItem => item.Year)
-                    </option>
+    @using (Html.BeginForm()) {
+        <div class="left">
+            <select name="Group" id="group-select" class="form-control mt-2">
+                @foreach (var item in ((List<TimeTable.Models.Group>)ViewBag.Group)) {
+                    if ((int)ViewBag.ActiveGroup == item.Id) {
+                        <option value="@Html.DisplayFor(modelItem => item.Id)" selected>
+                            @Html.DisplayFor(modelItem => item.Name)@Html.DisplayFor(modelItem => item.Year)
+                        </option>
+                    }
+                    else {
+                        <option value="@Html.DisplayFor(modelItem => item.Id)">
+                            @Html.DisplayFor(modelItem => item.Name)@Html.DisplayFor(modelItem => item.Year)
+                        </option>
+                    }
                 }
-            }
-        </select>
-    </div>
-    <div class="right">
-        @Html.ActionLink("Создать", "Create", null, new { @class = "btn m-1" })
-    </div>
+            </select>
+        </div>
+        <div class="right">
+            @Html.AntiForgeryToken()
+            <input type="submit" name="Submit" value="Опубликовать" class="btn btn-default" />
+            <input type="submit" name="Submit" value="Отозвать" class="btn btn-default" />
+            @Html.ActionLink("Создать", "Create", null, new { @class = "btn m-1" })
+        </div>
+        @*<div class="right">
+            @Html.ActionLink("Опубликовать", "Publish", null, new { @class = "btn m-1" })
+        </div>*@
+    }
 </div>
 
 <table class="js-timetable">

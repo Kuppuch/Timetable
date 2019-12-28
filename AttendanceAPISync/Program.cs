@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using MySql.Data.MySqlClient;
+using System.Globalization;
 
 namespace AttendanceAPISync {
     class Program {
@@ -13,7 +14,11 @@ namespace AttendanceAPISync {
         static void Main(string[] args) {
 
             settings = new INISettings(BaseDir() + "settings.ini");
-            UpdateDatabase();
+            if (args.Length == 0 || args.Length == 1 && args[0] == "-updateDB") {
+                UpdateDatabase();
+            } else if (args.Length == 1 && args[0] == "-sendTT") {
+                SendTimetable();
+            }
             Console.ReadKey();
 
             /*
@@ -99,8 +104,7 @@ namespace AttendanceAPISync {
 
 
                 List<int> usersFromDB = new List<int>();
-                if (connection.State != System.Data.ConnectionState.Open)
-                    connection.Open();
+                CheckConnection();
 
                 using (var reader = (new MySqlCommand("SELECT `id` from `users`", connection)).ExecuteReader()) {
                     while (reader.Read()) {
@@ -219,9 +223,112 @@ namespace AttendanceAPISync {
 
         public static void SendTimetable() {
 
+            var now = DateTime.Now;
+            var hours = now.Hour;
+            var minutes = now.Minute;
+            // hours = 10;
+            // minutes = 30;
+            minutes = hours * 60 + minutes - (8 * 60 + 30);
+            var pair = minutes / (1 * 60 + 50);
+            if (minutes % (1 * 60 + 50) >= (1 * 60 + 30)) {
+                return;
+            }
 
+            var weekDay = (int)now.DayOfWeek;
+
+            CultureInfo myCI = new CultureInfo("ru-RU");
+            Calendar myCal = myCI.Calendar;
+
+            var week = myCal.GetWeekOfYear(now, myCI.DateTimeFormat.CalendarWeekRule, myCI.DateTimeFormat.FirstDayOfWeek);
+
+            var weekType = week % 2 == 0;
+
+            var tts = GetTimetable(weekType, weekDay, pair);
+            
+            // Создание списка пар на основе одинаковых преподавателей
+
+            PairContainer pc;
+            IDictionary<int, PairContainer> pcs = new Dictionary<int, PairContainer>();
+
+            foreach (var tt in tts) {
+                if (pcs.ContainsKey(tt.Teacher)) {
+                    pcs[tt.Teacher].groups.Add(tt.Group);
+                } else {
+                    pc = new PairContainer() {
+                        groups = new List<int>() { tt.Group },
+                        teacher = tt.Teacher
+                    };
+                    pcs.Add(tt.Teacher, pc);
+                }
+            }
+
+            using (WebClient wc = new WebClient()) {
+                var url = settings.IniReadValue("url", "sessionCreate");
+                var studentUserType = settings.IniReadValue("common", "studentUserType");
+                var activeTime = settings.IniReadValue("session", "activeTime");
+
+                try {
+                    foreach (var one in pcs) {
+                        var json = wc.DownloadString(url + "&userType=" + studentUserType + "&activeTime=" + activeTime + "&groups=" + string.Join(',', one.Value.groups) + "&master=" + one.Value.teacher);
+                        dynamic responseObject = JObject.Parse(json);
+                        if (responseObject["success"] == "true") {
+                            Console.WriteLine("Сеанс был успешно создан для: групп: " + string.Join(',', one.Value.groups) + ", преподавателя: " + one.Value.teacher + ", сеанс начинается: " + responseObject["session"]["activeDateTime"]);
+                        } else {
+                            Console.WriteLine("Сеанс не был успешно создан! Причина: " + responseObject["msg"]);
+                        }
+                    }
+                } catch (Exception ex) {
+                    Console.WriteLine("Сеанс не был успешно создан! Причина: " + ex.Message);
+                }
+                
+            }
 
         }
 
+        public static List<Timetable> GetTimetable(bool weekType, int weekDay, int pair) {
+            CheckConnection();
+            List<Timetable> ttList = new List<Timetable>();
+
+            using (var reader = (new MySqlCommand("SELECT * FROM timetable_view WHERE numerator = " + (weekType ? 1 : 0) +
+                " AND weekday = " + (weekDay) + " AND number = " + (pair + 1), connection)).ExecuteReader()) {
+                while (reader.Read()) {
+                    ttList.Add(new Timetable() {
+                        Id = (int)reader["id"],
+                        Lesson = (int)reader["id_lesson"],
+                        LessonText = (string)reader["discipline"],
+                        WeekDay = (int)reader["weekday"],
+                        Numerator = reader.GetBoolean("numerator"),
+                        LessonNumber = reader.GetInt32("number") + "",
+                        Location = (string)reader["location"],
+                        Teacher = (int)reader["id_user"],
+                        TeacherText = (string)reader["teacher"],
+                        Group = (int)reader["id_group"],
+                        GroupText = (string)reader["group_name"],
+                        GroupYear = (int)reader["group_year"]
+                    });
+                }
+            }
+            return ttList;
+        }
+
+        public static bool CheckConnection() {
+            if (connection.State != System.Data.ConnectionState.Open) {
+                connection.Open();
+
+                return true;
+            }
+
+            return false;
+        }
+
     }
+
+    public class PairContainer {
+
+        public int teacher;
+        public List<int> groups;
+        public Timetable pair;
+
+    }
+   
 }
