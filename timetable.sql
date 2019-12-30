@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost
--- Время создания: Дек 16 2019 г., 21:54
+-- Время создания: Дек 29 2019 г., 12:29
 -- Версия сервера: 8.0.18
 -- Версия PHP: 7.4.0
 
@@ -57,8 +57,7 @@ INSERT INTO `discipline` (`id`, `name`, `user`) VALUES
 (16, 'История', 21),
 (17, 'Математика', 22),
 (18, 'Методы анализа данных', 23),
-(19, 'Методы и программные средства вычислений', 13),
-(23, 'х', 17);
+(19, 'Методы и программные средства вычислений', 13);
 
 -- --------------------------------------------------------
 
@@ -167,7 +166,6 @@ INSERT INTO `lesson` (`id`, `discipline`, `group`, `teacher`) VALUES
 (8, 8, 12, 13),
 (9, 9, 13, 17),
 (10, 10, 14, 13),
-(11, 11, 15, 15),
 (12, 12, 2, 16),
 (13, 13, 1, 18),
 (14, 14, 11, 19),
@@ -176,7 +174,8 @@ INSERT INTO `lesson` (`id`, `discipline`, `group`, `teacher`) VALUES
 (17, 17, 12, 22),
 (18, 18, 7, 23),
 (19, 19, 7, 13),
-(20, 15, 15, 23);
+(20, 15, 15, 23),
+(24, 11, 15, 15);
 
 -- --------------------------------------------------------
 
@@ -190,37 +189,38 @@ CREATE TABLE `timetable` (
   `weekday` int(11) NOT NULL,
   `numerator` tinyint(4) NOT NULL,
   `number` int(11) NOT NULL,
-  `location` varchar(45) NOT NULL
+  `location` varchar(45) NOT NULL,
+  `published` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `timetable`
 --
 
-INSERT INTO `timetable` (`id`, `lesson`, `weekday`, `numerator`, `number`, `location`) VALUES
-(1, 1, 1, 1, 1, '410-2'),
-(2, 2, 2, 1, 1, '410-2'),
-(3, 3, 3, 1, 2, '213-3'),
-(4, 4, 4, 1, 3, '213-3'),
-(5, 5, 5, 1, 2, '213-3'),
-(6, 6, 1, 0, 1, '213-3'),
-(7, 7, 2, 0, 2, '314-3'),
-(8, 8, 3, 0, 2, '410-2'),
-(9, 9, 4, 0, 3, '410-2'),
-(10, 10, 5, 0, 2, '414-2'),
-(11, 11, 1, 1, 2, '418-2'),
-(12, 12, 2, 1, 2, '314-3'),
-(13, 13, 3, 1, 1, '410-2'),
-(14, 14, 4, 1, 2, '403-1'),
-(15, 15, 5, 1, 1, '1'),
-(16, 16, 1, 0, 2, 'А-3'),
-(17, 17, 2, 0, 1, 'Б-3'),
-(18, 18, 3, 0, 1, '404а-2'),
-(19, 19, 4, 0, 2, '414-2'),
-(20, 20, 5, 1, 6, '101'),
-(21, 17, 4, 1, 6, 'Б-3'),
-(22, 16, 4, 1, 6, 'Ф-3'),
-(23, 17, 2, 0, 5, 'Ъ-3');
+INSERT INTO `timetable` (`id`, `lesson`, `weekday`, `numerator`, `number`, `location`, `published`) VALUES
+(1, 1, 1, 1, 1, '410-2', 1),
+(2, 2, 2, 1, 1, '410-2', 1),
+(3, 3, 3, 1, 2, '213-3', 1),
+(4, 4, 4, 1, 3, '213-3', 1),
+(5, 5, 5, 1, 2, '213-3', 1),
+(6, 6, 1, 0, 1, '213-3', 1),
+(7, 7, 2, 0, 2, '314-3', 1),
+(8, 8, 3, 0, 2, '410-2', 1),
+(9, 9, 4, 0, 3, '410-2', 1),
+(10, 10, 5, 0, 2, '414-2', 1),
+(12, 12, 2, 1, 2, '314-3', 1),
+(13, 13, 3, 1, 1, '410-2', 1),
+(14, 14, 4, 1, 2, '403-1', 1),
+(15, 15, 5, 1, 1, '1', 1),
+(16, 16, 1, 0, 2, 'А-3', 1),
+(17, 17, 2, 0, 1, 'Б-3', 1),
+(18, 18, 3, 0, 1, '404а-2', 1),
+(19, 19, 4, 0, 2, '414-2', 1),
+(20, 20, 5, 1, 6, '101', 1),
+(21, 17, 4, 1, 6, 'Б-3', 1),
+(22, 16, 4, 1, 6, 'Ф-3', 1),
+(23, 17, 2, 0, 5, 'Ъ-3', 1),
+(24, 24, 1, 1, 1, '414-2', 1);
 
 -- --------------------------------------------------------
 
@@ -241,6 +241,7 @@ CREATE TABLE `timetable_view` (
 ,`id_group` int(11)
 ,`group_name` varchar(45)
 ,`group_year` int(11)
+,`published` tinyint(4)
 );
 
 -- --------------------------------------------------------
@@ -349,7 +350,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `timetable_view`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `timetable_view` AS  select `timetable`.`id` AS `id`,`lesson`.`id` AS `id_lesson`,`discipline`.`name` AS `discipline`,`users`.`id` AS `id_user`,`users`.`name` AS `teacher`,`weekday` AS `weekday`,`numerator` AS `numerator`,`number` AS `number`,`location` AS `location`,`group`.`id` AS `id_group`,`group`.`name` AS `group_name`,`group`.`year` AS `group_year` from ((((`timetable` join `lesson`) join `discipline`) join `users`) join `group` on((`lesson`.`group` = `group`.`id`))) where ((`lesson` = `lesson`.`id`) and (`lesson`.`discipline` = `discipline`.`id`) and (`discipline`.`user` = `users`.`id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `timetable_view`  AS  select `id` AS `id`,`lesson`.`id` AS `id_lesson`,`discipline`.`name` AS `discipline`,`users`.`id` AS `id_user`,`users`.`name` AS `teacher`,`weekday` AS `weekday`,`numerator` AS `numerator`,`number` AS `number`,`location` AS `location`,`group`.`id` AS `id_group`,`group`.`name` AS `group_name`,`group`.`year` AS `group_year`,`published` AS `published` from ((((`timetable` join `lesson`) join `discipline`) join `users`) join `group` on((`lesson`.`group` = `group`.`id`))) where ((`lesson` = `lesson`.`id`) and (`lesson`.`discipline` = `discipline`.`id`) and (`discipline`.`user` = `users`.`id`)) ;
 
 -- --------------------------------------------------------
 
@@ -415,7 +416,7 @@ ALTER TABLE `user_type`
 -- AUTO_INCREMENT для таблицы `discipline`
 --
 ALTER TABLE `discipline`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT для таблицы `group`
@@ -427,13 +428,13 @@ ALTER TABLE `group`
 -- AUTO_INCREMENT для таблицы `lesson`
 --
 ALTER TABLE `lesson`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT для таблицы `timetable`
 --
 ALTER TABLE `timetable`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
@@ -455,21 +456,21 @@ ALTER TABLE `user_type`
 -- Ограничения внешнего ключа таблицы `discipline`
 --
 ALTER TABLE `discipline`
-  ADD CONSTRAINT `lecturer` FOREIGN KEY (`user`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `lecturer` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ограничения внешнего ключа таблицы `lesson`
 --
 ALTER TABLE `lesson`
   ADD CONSTRAINT `academic_group` FOREIGN KEY (`group`) REFERENCES `group` (`id`),
-  ADD CONSTRAINT `discipline` FOREIGN KEY (`discipline`) REFERENCES `discipline` (`id`),
+  ADD CONSTRAINT `discipline` FOREIGN KEY (`discipline`) REFERENCES `discipline` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `teacher` FOREIGN KEY (`teacher`) REFERENCES `users` (`id`);
 
 --
 -- Ограничения внешнего ключа таблицы `timetable`
 --
 ALTER TABLE `timetable`
-  ADD CONSTRAINT `lesson` FOREIGN KEY (`lesson`) REFERENCES `lesson` (`id`);
+  ADD CONSTRAINT `lesson` FOREIGN KEY (`lesson`) REFERENCES `lesson` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ограничения внешнего ключа таблицы `users`

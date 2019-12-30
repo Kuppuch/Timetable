@@ -69,7 +69,7 @@ namespace TimeTable.Controllers {
 
         // POST: Home/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "Discipline, Group, Teacher")]Lesson lesson) {
+        public ActionResult Edit([Bind(Include = "Id, Discipline, Group, Teacher")]Lesson lesson) {
             if (ModelState.IsValid && DAOLesson.EditLesson(lesson))
                 return RedirectToAction("Index");
             return View();

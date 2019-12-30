@@ -57,25 +57,6 @@ namespace TimeTable.Tests.Controllers {
 
         }
 
-        //[TestMethod]
-        //public void IndexViewEqualIndexCshtml() {
-        //    LessonController controller = new LessonController();
-
-        //    ViewResult result = controller.Index() as ViewResult;
-
-        //    Assert.AreEqual("Index", result.ViewName);
-        //}
-
-        //[TestMethod]
-        //public void IndexStringInViewbag() {
-        //    LessonController controller = new LessonController();
-
-        //    ViewResult result = controller.Index() as ViewResult;
-
-        //    Assert.AreEqual("Hello world!", result.ViewBag.Message);
-        //}
-
-
     }
 
 }

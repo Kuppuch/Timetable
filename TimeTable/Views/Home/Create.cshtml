@@ -13,42 +13,20 @@
     <h4>Расписание</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @*<div class="form-group">
-        @Html.LabelFor(model => model.Group, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <select name="Group" class="form-control">
-                <option value="-1" selected>Группы</option>
-                @foreach (var item in ((List<TimeTable.Models.Group>)ViewBag.Group)) {
-                <option value="@Html.DisplayFor(modelItem => item.Id)">
-                    @Html.DisplayFor(modelItem => item.Name)@Html.DisplayFor(modelItem => item.Year)
-                </option>
-                }
-            </select>
-            @Html.ValidationMessageFor(model => model.LessonText, "", new { @class = "text-danger" })
-        </div>
-    </div>*@
 
     <div class="form-group">
         @Html.LabelFor(model => model.Lesson, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             <select name="Lesson" class="form-control">
-                <option value="-1" selected>Занятия</option>
+                <option value="-1" selected>Занятие</option>
                 @foreach (var item in ((List<TimeTable.Models.Lesson>)ViewBag.Message)) {
-                    <option value="@Html.DisplayFor(modelItem => item.Id)">
-                        @Html.DisplayFor(modelItem => item.DisciplineText)
-                    </option>
+            <option value="@Html.DisplayFor(modelItem => item.Id)">
+                @Html.DisplayFor(modelItem => item.DisciplineText) | @Html.DisplayFor(modelItem => item.GroupText) | @Html.DisplayFor(modelItem => item.TeacherText)
+            </option>
                 }
             </select>
             @Html.ValidationMessageFor(model => model.Lesson, "", new { @class = "text-danger" })
         </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Teacher, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DisplayFor(model => model.TeacherText, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.TeacherText, "", new { @class = "text-danger" })
-        </div>   
     </div>
 
 <div class="form-group">

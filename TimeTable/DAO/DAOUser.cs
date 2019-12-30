@@ -34,38 +34,38 @@ namespace TimeTable.DAO {
             return new DAOUser().GetUsers("WHERE `type_id` = 2 ORDER BY name");
         }
 
-        public static User GetByEmail(string email) {
-            CheckConnection();
+        //public static User GetByEmail(string email) {
+        //    CheckConnection();
 
-            using (var reader = (new MySqlCommand("SELECT * FROM `users_view` WHERE `email` = '" + email + "'", connection)).ExecuteReader()) {
-                if (reader.Read()) {
-                    return new User() {
-                        Id = reader.GetInt32("id"),
-                        UserType = reader.GetInt32("type_id"),
-                        Email = (string)reader["email"]
-                    };
-                }
+        //    using (var reader = (new MySqlCommand("SELECT * FROM `users_view` WHERE `email` = '" + email + "'", connection)).ExecuteReader()) {
+        //        if (reader.Read()) {
+        //            return new User() {
+        //                Id = reader.GetInt32("id"),
+        //                UserType = reader.GetInt32("type_id"),
+        //                Email = (string)reader["email"]
+        //            };
+        //        }
 
-            }
+        //    }
 
-            return null;
-        }
+        //    return null;
+        //}
 
-        public static User GetById(int id) {
-            CheckConnection();
+        //public static User GetById(int id) {
+        //    CheckConnection();
 
-            using (var reader = (new MySqlCommand("SELECT * FROM `users_view` WHERE `id` = '" + id + "'", connection)).ExecuteReader()) {
-                if (reader.Read()) {
-                    return new User() {
-                        Id = reader.GetInt32("id"),
-                        UserType = reader.GetInt32("type_id"),
-                        Email = (string)reader["email"]
-                    };
-                }
+        //    using (var reader = (new MySqlCommand("SELECT * FROM `users_view` WHERE `id` = '" + id + "'", connection)).ExecuteReader()) {
+        //        if (reader.Read()) {
+        //            return new User() {
+        //                Id = reader.GetInt32("id"),
+        //                UserType = reader.GetInt32("type_id"),
+        //                Email = (string)reader["email"]
+        //            };
+        //        }
 
-            }
+        //    }
 
-            return null;
-        }
+        //    return null;
+        //}
     }
 }

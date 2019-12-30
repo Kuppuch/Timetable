@@ -26,7 +26,7 @@ namespace TimeTable.Controllers {
                 if (UserContext.CheckUser(model.Email, model.Password)) {
                     FormsAuthentication.SetAuthCookie(model.Email, true);
 
-                    return RedirectToAction("Index", "Home", model);
+                    return RedirectToAction("Index", "Schedule", model);
                 } else {
                     ModelState.AddModelError("", "Пользователя с таким логином и паролем нет");
                 }

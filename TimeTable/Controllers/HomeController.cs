@@ -31,7 +31,7 @@ namespace TimeTable.Controllers {
         }
 
         public ActionResult About() {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Описание web-приложения.";
 
             return View();
         }
@@ -66,7 +66,7 @@ namespace TimeTable.Controllers {
                     return RedirectToAction("Index");
             }
             catch (Exception ex) {
-                Logger.Logger.Log.Info("Не опкбликовать расписание: " + ex);
+                Logger.Logger.Log.Info("Не удалось опубликовать расписание: " + ex);
                 return RedirectToAction("Index");
             }
         }
